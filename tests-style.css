@@ -1,0 +1,285 @@
+/* Стили, специфичные для тестов */
+#quiz-section {
+    display: none;
+    animation: fade-in 0.8s ease-out forwards;
+}
+
+.test-container {
+    background-color: #2a2a44;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.test-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+}
+
+.test-container h2 {
+    color: #ffcc00;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.test-links a {
+    font-size: 1.2em;
+    color: #00ff80;
+    display: block;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #3a3a5a;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.test-links a:hover {
+    background-color: #4a4a6a;
+    transform: scale(1.02);
+    color: #ffcc00;
+}
+
+.question {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    background-color: #3a3a5a;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #ffcc00;
+    transition: all 0.3s ease;
+}
+
+.question:hover {
+    border-color: #00ff80;
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.5);
+}
+
+.options label {
+    display: block;
+    background-color: #333;
+    padding: 15px;
+    margin: 8px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    border: 1px solid transparent;
+}
+
+.options label:hover {
+    background-color: #444;
+    transform: translateX(5px);
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+#submit-button, #back-to-tests-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    margin-top: 30px;
+    border: none;
+    text-transform: uppercase;
+}
+
+#submit-button.cta-button, #back-to-tests-button.cta-button {
+    background: linear-gradient(45deg, #ff6b6b, #ffcc00);
+    color: #1a1a2e;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s ease;
+}
+
+#submit-button.cta-button:hover, #back-to-tests-button.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+}
+
+#result {
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 8px;
+    background-color: #1a1a2e;
+    text-align: center;
+    border: 2px solid #00ff80;
+    animation: fade-in 0.5s ease-out forwards;
+}
+
+#result h3 {
+    margin-top: 0;
+    color: #00ff80;
+    animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+#result p {
+    font-size: 1.2em;
+    color: #ffcc00;
+}
+
+/* Highlight styles */
+.options label.correct {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+    border-color: #4caf50;
+    animation: none;
+}
+.options label.incorrect {
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+    border-color: #f44336;
+    animation: none;
+}
+
+/* Уникальные стили для каждого теста */
+/* Ladder-Push */
+body.test-ladderPush .test-container {
+    background-color: #2b3990;
+}
+
+body.test-ladderPush .test-container h2 {
+    color: #ffd700;
+}
+
+body.test-ladderPush .question {
+    background-color: #3b49a0;
+    border-color: #ffd700;
+}
+
+body.test-ladderPush .options label:hover {
+    background-color: #4b59b0;
+}
+
+/* AWP vs AUG */
+body.test-awpVsAug .test-container {
+    background-color: #3e2f5b;
+}
+
+body.test-awpVsAug .test-container h2 {
+    color: #9cff9b;
+}
+
+body.test-awpVsAug .question {
+    background-color: #4e3f6b;
+    border-color: #9cff9b;
+}
+
+body.test-awpVsAug .options label:hover {
+    background-color: #5e4f7b;
+}
+
+/* B-rush */
+body.test-bRush .test-container {
+    background-color: #9c3327;
+}
+
+body.test-bRush .test-container h2 {
+    color: #ffe66d;
+}
+
+body.test-bRush .question {
+    background-color: #ac4337;
+    border-color: #ffe66d;
+}
+
+body.test-bRush .options label:hover {
+    background-color: #bc5347;
+}
+
+/* Cowboy Tactic */
+body.test-cowboyTactic .test-container {
+    background-color: #7b4c2b;
+}
+
+body.test-cowboyTactic .test-container h2 {
+    color: #ffc971;
+}
+
+body.test-cowboyTactic .question {
+    background-color: #8b5c3b;
+    border-color: #ffc971;
+}
+
+body.test-cowboyTactic .options label:hover {
+    background-color: #9b6c4b;
+}
+
+/* Colonel Lowtaberenco */
+body.test-colonelLowtaberenco .test-container {
+    background-color: #5d2b7b;
+}
+
+body.test-colonelLowtaberenco .test-container h2 {
+    color: #d1b4ff;
+}
+
+body.test-colonelLowtaberenco .question {
+    background-color: #6d3b8b;
+    border-color: #d1b4ff;
+}
+
+body.test-colonelLowtaberenco .options label:hover {
+    background-color: #7d4b9b;
+}
+
+/* Chertolet */
+body.test-chertolet .test-container {
+    background-color: #2b7b5d;
+}
+
+body.test-chertolet .test-container h2 {
+    color: #b4ffd1;
+}
+
+body.test-chertolet .question {
+    background-color: #3b8b6d;
+    border-color: #b4ffd1;
+}
+
+body.test-chertolet .options label:hover {
+    background-color: #4b9b7d;
+}
+
+/* Real Life */
+body.test-realLife .test-container {
+    background-color: #7b2b2b;
+}
+
+body.test-realLife .test-container h2 {
+    color: #ffc9c9;
+}
+
+body.test-realLife .question {
+    background-color: #8b3b3b;
+    border-color: #ffc9c9;
+}
+
+body.test-realLife .options label:hover {
+    background-color: #9b4b4b;
+}
+
+/* Marathon Desmatch */
+body.test-marathonDesmatch .test-container {
+    background-color: #2b5d7b;
+}
+
+body.test-marathonDesmatch .test-container h2 {
+    color: #c9ffc9;
+}
+
+body.test-marathonDesmatch .question {
+    background-color: #3b6d8b;
+    border-color: #c9ffc9;
+}
+
+body.test-marathonDesmatch .options label:hover {
+    background-color: #4b7d9b;
+}
