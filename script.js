@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const faders = document.querySelectorAll('.fade-in');
 
     const appearOptions = {
-        threshold: 0.1, // Блок появляется, когда 10% его видно (было 20%)
-        rootMargin: "0px 0px 100px 0px" // Отступ снизу увеличен до 100px, чтобы блоки появлялись раньше
+        threshold: 0.1,
+        rootMargin: "0px 0px 100px 0px"
     };
 
     const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             } else {
                 entry.target.classList.add('active');
-                appearOnScroll.unobserve(entry.target); // Отключаем наблюдение после появления
+                appearOnScroll.unobserve(entry.target);
             }
         });
     }, appearOptions);
@@ -33,14 +33,76 @@ document.addEventListener('DOMContentLoaded', () => {
         appearOnScroll.observe(fader);
     });
 
-    // Дополнительный эффект при наведении на "Бам и баааам"
-    const bamBaamPhrases = document.querySelectorAll('strong'); // Выбираем все strong элементы, т.к. "бам и баааам" и "довольно важный аспект" выделены strong
-
+    // Дополнительный эффект при наведении
+    const bamBaamPhrases = document.querySelectorAll('strong');
     bamBaamPhrases.forEach(phrase => {
         phrase.addEventListener('mouseenter', () => {
-            // Здесь можно было бы добавить более сложную JS анимацию
-            // Например, случайное изменение цвета или краткий звуковой эффект
-            // Для примера оставим только CSS-анимацию, которая уже задана
+            // Эффект, который будет добавлен в CSS
         });
+    });
+
+    // --- Космические эффекты ---
+
+    // 1. Генерация мерцающих звезд по всей высоте документа
+    const starContainer = document.createElement('div');
+    starContainer.classList.add('star-container');
+    document.body.appendChild(starContainer);
+
+    function createStar() {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        // Позиционируем звезды по всей высоте документа
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.top = `${Math.random() * document.documentElement.scrollHeight}px`;
+        star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        starContainer.appendChild(star);
+    }
+
+    // Создаем 150 звезд
+    const totalStars = 150;
+    for (let i = 0; i < totalStars; i++) {
+        createStar();
+    }
+    
+    // Динамически обновляем высоту star-container при изменении размера окна и контента
+    function updateStarContainerHeight() {
+        starContainer.style.height = `${document.documentElement.scrollHeight}px`;
+    }
+
+    // Вызываем функцию при загрузке страницы и при изменении её размера
+    window.addEventListener('load', updateStarContainerHeight);
+    window.addEventListener('resize', updateStarContainerHeight);
+
+    // Можно также добавить вызов при изменении контента, если это происходит динамически
+    // updateStarContainerHeight(); 
+
+    // 2. Эффект "космической пыли" при скролле
+    const particlesContainer = document.createElement('div');
+    particlesContainer.classList.add('particles-container');
+    document.body.appendChild(particlesContainer);
+
+    window.addEventListener('scroll', () => {
+        // Создаем "частицу"
+        const particle = document.createElement('div');
+        particle.classList.add('scroll-particle');
+        particlesContainer.appendChild(particle);
+
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${window.scrollY + window.innerHeight}px`;
+
+        const duration = Math.random() * 1 + 0.5;
+        particle.style.animation = `particle-move ${duration}s forwards`;
+        particle.style.animationTimingFunction = 'linear';
+
+        // Удаляем частицу после завершения анимации
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, duration * 1000);
     });
 });

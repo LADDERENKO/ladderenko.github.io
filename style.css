@@ -1,30 +1,33 @@
 /* style.css */
+/* Импортируем новые шрифты с Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 /* Общие стили и шрифты */
 html {
-    height: 100%; /* Убедимся, что html занимает всю высоту */
+    height: 100%;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Space Mono', monospace; /* Моноширинный шрифт для основного текста */
     margin: 0;
     padding: 0;
-    background-color: #1a1a2e; /* Темный фон, как в игре */
-    color: #e0e0e0; /* Светлый текст */
+    background-color: #1a0f35;
+    color: #e6e6fa;
     line-height: 1.6;
-    overflow-x: hidden; /* Чтобы избежать горизонтального скролла от анимаций */
-    min-height: 100vh; /* Убедимся, что body занимает минимум всю высоту видимой области */
-    display: flex; /* Используем flexbox для компоновки */
-    flex-direction: column; /* Элементы будут располагаться в столбец */
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1, h2, h3 {
-    font-family: 'Press Start 2P', cursive; /* Пиксельный шрифт для заголовков */
-    color: #ff6b6b; /* Яркий, "опасный" цвет */
+    font-family: 'Michroma', sans-serif; /* Футуристичный шрифт для заголовков */
+    color: #c988ef;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 a {
-    color: #4CAF50;
+    color: #a06eaf;
     text-decoration: none;
 }
 
@@ -40,21 +43,22 @@ a:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1920x1080/000000/FFFFFF?text=CS2+BACKGROUND') no-repeat center center/cover; /* Placeholder изображение */
+    background: linear-gradient(rgba(26, 15, 53, 0.7), rgba(26, 15, 53, 0.7)), url('https://via.placeholder.com/1920x1080/1a0f35/e6e6fa?text=SPACE+VIBES') no-repeat center center/cover;
+    background-attachment: fixed;
     overflow: hidden;
-    animation: background-pulse 10s infinite alternate; /* Анимация фона */
-    flex-shrink: 0; /* Предотвращаем сжатие hero-секции */
+    animation: background-pulse 10s infinite alternate;
+    flex-shrink: 0;
 }
 
 .hero-content {
     z-index: 1;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(26, 15, 53, 0.7);
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    box-shadow: 0 0 20px rgba(201, 136, 239, 0.5);
     transform: scale(0.8);
     opacity: 0;
-    animation: scale-in 1s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Эффект появления */
+    animation: scale-in 1s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55);
     animation-delay: 0.5s;
 }
 
@@ -79,11 +83,11 @@ a:hover {
 .hero-section .subtitle {
     font-size: 1.2em;
     font-style: italic;
-    color: #bbb;
+    color: #d1d1e0;
 }
 
 .cta-button {
-    background-color: #4CAF50; /* Зеленая кнопка */
+    background-color: #8c73cc;
     color: white;
     padding: 15px 30px;
     border: none;
@@ -92,13 +96,13 @@ a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     margin-top: 20px;
-    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4);
+    box-shadow: 0 5px 15px rgba(140, 115, 204, 0.4);
 }
 
 .cta-button:hover {
-    background-color: #45a049;
-    transform: translateY(-5px); /* Эффект поднятия */
-    box-shadow: 0 8px 20px rgba(0, 255, 0, 0.6);
+    background-color: #735aa6;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(140, 115, 204, 0.6);
 }
 
 /* Основной контент */
@@ -106,11 +110,10 @@ a:hover {
     max-width: 900px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #2a2a4a; /* Более светлый фон для контента */
+    background-color: #2e1d52;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-    /* Удаляем overflow-y: auto; и max-height отсюда, пусть скроллит сам body */
-    flex-grow: 1; /* Позволяем контенту занимать все доступное пространство */
+    flex-grow: 1;
 }
 
 section {
@@ -151,7 +154,7 @@ section:last-child {
     content: '>';
     position: absolute;
     left: 0;
-    color: #ff6b6b;
+    color: #c988ef;
     font-weight: bold;
 }
 
@@ -159,40 +162,40 @@ section:last-child {
 .footer {
     text-align: center;
     padding: 20px;
-    margin-top: 50px; /* Отступ сверху для разделения от контента */
-    background-color: #131320;
+    margin-top: 50px;
+    background-color: #130a24;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #888;
+    color: #999;
     font-size: 0.9em;
-    flex-shrink: 0; /* Предотвращаем сжатие подвала */
+    flex-shrink: 0;
 }
 
 /* Анимация для "бам и баааам" - при наведении */
 strong {
     position: relative;
     display: inline-block;
-    cursor: help; /* Курсор для интерактивности */
+    cursor: help;
     transition: color 0.3s ease;
 }
 
 strong:hover {
-    color: #ffee00; /* Яркий цвет при наведении */
-    animation: text-pulse 0.5s infinite alternate; /* Анимация пульсации */
+    color: #e6e6fa;
+    animation: text-pulse 0.5s infinite alternate;
 }
 
 @keyframes text-pulse {
-    0% { transform: scale(1); text-shadow: 0 0 5px rgba(255, 238, 0, 0.5); }
-    100% { transform: scale(1.05); text-shadow: 0 0 10px rgba(255, 238, 0, 1); }
+    0% { transform: scale(1); text-shadow: 0 0 5px rgba(230, 230, 250, 0.5); }
+    100% { transform: scale(1.05); text-shadow: 0 0 10px rgba(230, 230, 250, 1); }
 }
 
 /* Анимация для "довольно важный аспект" - при наведении */
 p strong {
-    color: #00e0ff; /* Другой цвет для другого выделения */
+    color: #a06eaf;
 }
 
 p strong:hover {
-    color: #00aaff;
-    animation: text-shake 0.3s infinite alternate; /* Анимация дрожания */
+    color: #7b4c8a;
+    animation: text-shake 0.3s infinite alternate;
 }
 
 @keyframes text-shake {
@@ -215,22 +218,21 @@ p strong:hover {
 
 .navigation-section a {
     display: block;
-    background-color: #3a3a5a;
+    background-color: #3b2c6b;
     padding: 15px 20px;
     border-radius: 8px;
     font-size: 1.1em;
-    color: #e0e0e0;
+    color: #e6e6fa;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .navigation-section a:hover {
-    background-color: #4a4a6a;
+    background-color: #4c3a8c;
     transform: translateY(-3px);
     text-decoration: none;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
 }
-
 
 /* Медиа-запросы для адаптивности */
 @media (max-width: 768px) {
@@ -245,7 +247,6 @@ p strong:hover {
     .content-wrapper {
         margin: 20px auto;
         padding: 10px;
-        /* Убираем max-height и overflow-y: auto отсюда, так как body будет скроллиться */
     }
 
     h2 {
@@ -274,7 +275,8 @@ p strong:hover {
 
 /* New theme for Real Life section */
 .real-life-hero {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1920x1080/4B0082/FFFFFF?text=REAL+LIFE') no-repeat center center/cover;
+    background: linear-gradient(rgba(46, 29, 82, 0.7), rgba(46, 29, 82, 0.7)), url('https://via.placeholder.com/1920x1080/2e1d52/e6e6fa?text=REAL+LIFE') no-repeat center center/cover;
+    background-attachment: fixed;
     animation: background-pulse-real-life 15s infinite alternate;
 }
 
@@ -284,7 +286,7 @@ p strong:hover {
 }
 
 .real-life-hero .hero-content {
-    box-shadow: 0 0 20px rgba(75, 0, 130, 0.7); /* Фиолетовая тень */
+    box-shadow: 0 0 20px rgba(126, 99, 178, 0.7);
 }
 
 /* New back button styling */
@@ -297,21 +299,79 @@ p strong:hover {
 .back-link {
     display: inline-block;
     padding: 12px 25px;
-    background-color: #ff6b6b;
-    color: white;
+    background-color: #c988ef;
+    color: #e6e6fa;
     border-radius: 5px;
     font-family: 'Press Start 2P', cursive;
     font-size: 1em;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 5px 15px rgba(201, 136, 239, 0.4);
 }
 
 .back-link:hover {
-    background-color: #ff5252;
+    background-color: #a06eaf;
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+    box-shadow: 0 8px 20px rgba(201, 136, 239, 0.6);
 }
 
 .back-link i {
     margin-right: 10px;
+}
+
+/* Дополнительные стили для космических эффектов */
+.star-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 1s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Стили для "космической пыли" */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.scroll-particle {
+    position: absolute;
+    background: #e6e6fa;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes particle-move {
+    0% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
 }
