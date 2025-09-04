@@ -74,35 +74,51 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', updateStarContainerHeight);
     window.addEventListener('resize', updateStarContainerHeight);
 
-    // Можно также добавить вызов при изменении контента, если это происходит динамически
-    // updateStarContainerHeight(); 
+    // Добавляем IntersectionObserver для динамического контента, если он будет
+    const contentObserver = new MutationObserver(updateStarContainerHeight);
+    contentObserver.observe(document.body, { childList: true, subtree: true });
 
     // 2. Эффект "космической пыли" при скролле
     const particlesContainer = document.createElement('div');
     particlesContainer.classList.add('particles-container');
     document.body.appendChild(particlesContainer);
 
-    window.addEventListener('scroll', () => {
-        // Создаем "частицу"
-        const particle = document.createElement('div');
-        particle.classList.add('scroll-particle');
-        particlesContainer.appendChild(particle);
+    let lastScrollY = 0;
+    let particleTimeout = null;
+    const scrollHandler = () => {
+        const currentScrollY = window.scrollY;
+        const scrollDelta = Math.abs(currentScrollY - lastScrollY);
 
-        const size = Math.random() * 2 + 1;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${Math.random() * 100}vw`;
-        particle.style.top = `${window.scrollY + window.innerHeight}px`;
+        // Ограничиваем создание частиц, чтобы избежать "зависаний"
+        if (scrollDelta > 50 && !particleTimeout) {
+            // Создаем "частицу"
+            const particle = document.createElement('div');
+            particle.classList.add('scroll-particle');
+            particlesContainer.appendChild(particle);
 
-        const duration = Math.random() * 1 + 0.5;
-        particle.style.animation = `particle-move ${duration}s forwards`;
-        particle.style.animationTimingFunction = 'linear';
+            const size = Math.random() * 2 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${window.scrollY + window.innerHeight}px`;
 
-        // Удаляем частицу после завершения анимации
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.parentNode.removeChild(particle);
-            }
-        }, duration * 1000);
-    });
+            const duration = Math.random() * 1 + 0.5;
+            particle.style.animation = `particle-move ${duration}s forwards`;
+            particle.style.animationTimingFunction = 'linear';
+
+            // Удаляем частицу после завершения анимации
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, duration * 1000);
+
+            lastScrollY = currentScrollY;
+            particleTimeout = setTimeout(() => {
+                particleTimeout = null;
+            }, 50); // Задержка в 50мс между созданиями частиц
+        }
+    };
+
+    window.addEventListener('scroll', scrollHandler);
 });

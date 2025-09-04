@@ -24,6 +24,7 @@ h1, h2, h3 {
     font-family: 'Michroma', sans-serif; /* Футуристичный шрифт для заголовков */
     color: #c988ef;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    word-wrap: break-word; /* Важное добавление для переноса длинных слов */
 }
 
 a {
@@ -60,6 +61,7 @@ a:hover {
     opacity: 0;
     animation: scale-in 1s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55);
     animation-delay: 0.5s;
+    max-width: 90%; /* Важное добавление для мобильных устройств */
 }
 
 @keyframes scale-in {
