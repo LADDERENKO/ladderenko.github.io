@@ -377,3 +377,109 @@ p strong:hover {
         opacity: 0;
     }
 }
+
+/* НОВЫЕ СТИЛИ для аккордеона */
+/* Стили для заголовков аккордеона */
+.accordion-header {
+    background-color: #3b2c6b;
+    color: #e6e6fa;
+    cursor: pointer;
+    padding: 15px 20px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-family: 'Michroma', sans-serif;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 15px;
+    display: flex; /* Для выравнивания заголовка и иконки */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-header:hover {
+    background-color: #4c3a8c;
+}
+
+.accordion-header h3 {
+    margin: 0;
+    padding: 0;
+    color: inherit;
+    text-shadow: none;
+    flex-grow: 1; /* Чтобы заголовок занимал доступное пространство */
+}
+
+/* Иконка-стрелка */
+.accordion-header .icon {
+    font-size: 1em;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Стили для содержимого аккордеона */
+.accordion-content {
+    background-color: #2e1d52;
+    overflow: hidden;
+    max-height: 0; /* Изначально скрываем содержимое */
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out; /* Увеличили длительность и добавили padding */
+    border-radius: 0 0 8px 8px;
+    padding: 0 20px; /* Изначально 0 padding по вертикали */
+    position: relative; /* Важно для позиционирования частиц */
+}
+
+.accordion-content ul {
+    list-style: none;
+    padding: 0; /* Убрали padding сверху, он будет через accordion-content */
+    margin: 0;
+}
+
+.accordion-content li {
+    margin-bottom: 10px;
+}
+
+.accordion-content li:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Стили для активного состояния */
+.accordion-header.active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #4c3a8c;
+    margin-bottom: 0;
+}
+
+.accordion-header.active .icon {
+    transform: rotate(180deg); /* Поворот иконки */
+}
+
+.accordion-content.active {
+    max-height: 1000px; /* Установите достаточно большое значение, чтобы вместить весь контент */
+    padding: 20px; /* Добавляем padding при открытии */
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+}
+
+/* Новые стили для анимированных частиц */
+.accordion-particle {
+    position: absolute;
+    background: #e6e6fa;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particle-burst 0.8s ease-out forwards;
+}
+
+@keyframes particle-burst {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(1);
+        opacity: 0;
+    }
+}

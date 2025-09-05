@@ -121,4 +121,58 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.addEventListener('scroll', scrollHandler);
+
+    // --- Логика для сворачивающихся разделов (аккордеона) ---
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    // Функция для создания эффекта частиц
+    function createParticles(parentContainer) {
+        const particleCount = 20; // Количество частиц
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('accordion-particle');
+            // Случайная позиция внутри блока
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            // Случайный размер
+            const size = Math.random() * 3 + 1; // Размер от 1px до 4px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            // Случайная задержка анимации
+            particle.style.animationDelay = `${Math.random() * 0.5}s`;
+            parentContainer.appendChild(particle);
+
+            // Удаляем частицу после завершения анимации
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+            });
+        }
+    }
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            
+            // Если контент уже открыт, закрываем его
+            if (content.classList.contains('active')) {
+                header.classList.remove('active');
+                content.classList.remove('active');
+            } else {
+                // Закрываем все другие открытые разделы
+                document.querySelectorAll('.accordion-header').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.accordion-content').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Открываем текущий раздел
+                header.classList.add('active');
+                content.classList.add('active');
+
+                // Создаём эффект частиц
+                createParticles(content);
+            }
+        });
+    });
 });
