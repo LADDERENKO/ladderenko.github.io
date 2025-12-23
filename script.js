@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appearOnScroll.observe(fader);
     });
 
-    // Дополнительный эффект при наведении
+    // Дополнительный эффект при наведении (сохраняем)
     const bamBaamPhrases = document.querySelectorAll('strong');
     bamBaamPhrases.forEach(phrase => {
         phrase.addEventListener('mouseenter', () => {
@@ -41,101 +41,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Космические эффекты ---
+    // --- НОВЫЙ БЛОК: СНЕЖНАЯ АГРЕССИЯ (Падающий снег) ---
+    const body = document.body;
+    const numberOfSnowflakes = 50; 
 
-    // 1. Генерация мерцающих звезд по всей высоте документа
-    const starContainer = document.createElement('div');
-    starContainer.classList.add('star-container');
-    document.body.appendChild(starContainer);
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        
+        const size = Math.random() * 3 + 1; 
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
 
-    function createStar() {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        // Позиционируем звезды по всей высоте документа
-        star.style.left = `${Math.random() * 100}vw`;
-        star.style.top = `${Math.random() * document.documentElement.scrollHeight}px`;
-        star.style.animationDuration = `${Math.random() * 2 + 1}s`;
-        star.style.animationDelay = `${Math.random() * 2}s`;
-        starContainer.appendChild(star);
+        snowflake.style.left = `${Math.random() * 100}vw`;
+
+        const duration = Math.random() * 15 + 10; 
+        snowflake.style.animationDuration = `${duration}s`;
+        snowflake.style.animationDelay = `-${Math.random() * 10}s`; 
+
+        body.appendChild(snowflake);
+
+        // Удаление снежинки, чтобы не было, сука, утечки памяти
+        setTimeout(() => {
+            snowflake.remove();
+        }, duration * 1000 + 100); 
     }
 
-    // Создаем 150 звезд
-    const totalStars = 150;
-    for (let i = 0; i < totalStars; i++) {
-        createStar();
-    }
+    // Запускаем генерацию снежинок
+    setInterval(createSnowflake, 500); 
     
-    // Динамически обновляем высоту star-container при изменении размера окна и контента
-    function updateStarContainerHeight() {
-        starContainer.style.height = `${document.documentElement.scrollHeight}px`;
+    // Начальная генерация снежинок для заполнения экрана
+    for (let i = 0; i < numberOfSnowflakes; i++) {
+        createSnowflake();
     }
-
-    // Вызываем функцию при загрузке страницы и при изменении её размера
-    window.addEventListener('load', updateStarContainerHeight);
-    window.addEventListener('resize', updateStarContainerHeight);
-
-    // Добавляем IntersectionObserver для динамического контента, если он будет
-    const contentObserver = new MutationObserver(updateStarContainerHeight);
-    contentObserver.observe(document.body, { childList: true, subtree: true });
-
-    // 2. Эффект "космической пыли" при скролле
-    const particlesContainer = document.createElement('div');
-    particlesContainer.classList.add('particles-container');
-    document.body.appendChild(particlesContainer);
-
-    let lastScrollY = 0;
-    let particleTimeout = null;
-    const scrollHandler = () => {
-        const currentScrollY = window.scrollY;
-        const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-
-        // Ограничиваем создание частиц, чтобы избежать "зависаний"
-        if (scrollDelta > 50 && !particleTimeout) {
-            // Создаем "частицу"
-            const particle = document.createElement('div');
-            particle.classList.add('scroll-particle');
-            particlesContainer.appendChild(particle);
-
-            const size = Math.random() * 2 + 1;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}vw`;
-            particle.style.top = `${window.scrollY + window.innerHeight}px`;
-
-            const duration = Math.random() * 1 + 0.5;
-            particle.style.animation = `particle-move ${duration}s forwards`;
-            particle.style.animationTimingFunction = 'linear';
-
-            // Удаляем частицу после завершения анимации
-            setTimeout(() => {
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            }, duration * 1000);
-
-            lastScrollY = currentScrollY;
-            particleTimeout = setTimeout(() => {
-                particleTimeout = null;
-            }, 50); // Задержка в 50мс между созданиями частиц
-        }
-    };
-
-    window.addEventListener('scroll', scrollHandler);
-
-    // --- Логика для сворачивающихся разделов (аккордеона) ---
+    // --- КОНЕЦ НОВОГО БЛОКА СНЕГА ---
+    
+    // Скрипт для Аккордеона (Меню навигации)
     const accordionHeaders = document.querySelectorAll('.accordion-header');
 
-    // Функция для создания эффекта частиц
+    // Функция для создания эффекта частиц (сохраняем функционал)
     function createParticles(parentContainer) {
-        const particleCount = 20; // Количество частиц
+        const particleCount = 10;
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
-            particle.classList.add('accordion-particle');
-            // Случайная позиция внутри блока
+            particle.className = 'particle';
+            // Агрессивное позиционирование частиц
             particle.style.left = `${Math.random() * 100}%`;
             particle.style.top = `${Math.random() * 100}%`;
-            // Случайный размер
-            const size = Math.random() * 3 + 1; // Размер от 1px до 4px
+            const size = Math.random() * 4 + 2; 
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             // Случайная задержка анимации

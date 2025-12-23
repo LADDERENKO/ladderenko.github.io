@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css - Агрессивный Неоновый Новый Год */
 /* Импортируем новые шрифты с Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
@@ -8,131 +8,117 @@ html {
 }
 
 body {
-    font-family: 'Space Mono', monospace; /* Моноширинный шрифт для основного текста */
+    font-family: 'Space Mono', monospace; 
     margin: 0;
     padding: 0;
-    background-color: #1a0f35;
-    color: #e6e6fa;
+    /* ФОН НОВОГО ГОДА: Глубокая Зимняя Ночь */
+    background: #000B1A; 
+    color: #E6F0FF; /* Яркий, Морозный текст */
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
+    
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
+    
+    position: relative; 
+    z-index: 1; 
 }
 
+/* Неоновое Сияние для Заголовков: Красный и Синий (Гирлянда) */
 h1, h2, h3 {
-    font-family: 'Michroma', sans-serif; /* Футуристичный шрифт для заголовков */
-    color: #c988ef;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    word-wrap: break-word; /* Важное добавление для переноса длинных слов */
+    font-family: 'Michroma', sans-serif;
+    color: #00FFFF; /* Яркий Неоновый Циан */
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.7), 0 0 30px rgba(255, 0, 85, 0.5); /* Двойной неоновый эффект */
+    word-wrap: break-word; 
+    text-align: center;
 }
 
+/* Ссылки */
 a {
-    color: #a06eaf;
+    color: #FF0055; /* Неоновый Красный (Снегирь!) */
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: #00FFFF; /* Кибер-Голубой */
 }
 
-/* Секция Hero (заголовок и кнопка) */
+/* Основной контейнер контента - ЦЕНТРИРОВАНИЕ И БЛЕСК */
+.content-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto; 
+    padding: 20px 40px;
+    /* НОВОГОДНИЙ ЛЕДЯНОЙ БЛОК */
+    background-color: rgba(0, 15, 30, 0.95); /* Почти непрозрачный темный фон */
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 255, 0.4); /* Ледяная рамка */
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.5); /* Синее/Ледяное свечение */
+    flex-grow: 1; 
+    position: relative; 
+    z-index: 5; 
+}
+
+/* Секция Героя (Шапка) - Мощь Гения */
 .hero-section {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: linear-gradient(135deg, #0A1A3A 0%, #000B1A 100%); /* Глубокий синий/черный градиент */
+    padding: 60px 20px;
     text-align: center;
-    background: linear-gradient(rgba(26, 15, 53, 0.7), rgba(26, 15, 53, 0.7)), url('https://via.placeholder.com/1920x1080/1a0f35/e6e6fa?text=SPACE+VIBES') no-repeat center center/cover;
-    background-attachment: fixed;
-    overflow: hidden;
-    animation: background-pulse 10s infinite alternate;
-    flex-shrink: 0;
+    border-bottom: 5px solid #FF0055; /* Красная Новогодняя Лента */
+    box-shadow: 0 5px 40px rgba(255, 0, 85, 0.5);
 }
 
-.hero-content {
-    z-index: 1;
-    padding: 20px;
-    background: rgba(26, 15, 53, 0.7);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(201, 136, 239, 0.5);
-    transform: scale(0.8);
-    opacity: 0;
-    animation: scale-in 1s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    animation-delay: 0.5s;
-    max-width: 90%; /* Важное добавление для мобильных устройств */
-}
-
-@keyframes scale-in {
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes background-pulse {
-    0% { background-size: 100% 100%; }
-    100% { background-size: 110% 110%; }
-}
-
-.hero-section h1 {
-    font-size: 3em;
+.hero-content h1 {
+    font-size: 2.5em;
     margin-bottom: 10px;
-    text-transform: uppercase;
 }
 
-.hero-section .subtitle {
-    font-size: 1.2em;
+.subtitle {
     font-style: italic;
-    color: #d1d1e0;
+    color: #A0C0FF; /* Морозный Синий */
+    font-size: 1.1em;
+    margin-top: 0;
 }
 
+/* CTA Кнопка - Голубой Акцент */
 .cta-button {
-    background-color: #8c73cc;
-    color: white;
-    padding: 15px 30px;
+    background-color: #FF0055; /* Неоновый Красный */
+    color: #E6F0FF;
     border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
+    padding: 12px 25px;
+    font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 5px;
+    font-family: 'Michroma', sans-serif;
     margin-top: 20px;
-    box-shadow: 0 5px 15px rgba(140, 115, 204, 0.4);
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.7);
+    transition: all 0.2s ease;
 }
 
 .cta-button:hover {
-    background-color: #735aa6;
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(140, 115, 204, 0.6);
+    background-color: #00FFFF;
+    color: #000B1A;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #00FFFF;
 }
 
-/* Основной контент */
-.content-wrapper {
-    max-width: 900px;
-    margin: 50px auto;
+/* Секции контента */
+.intro-section, .article-content section, .sources-section {
+    margin-bottom: 30px;
     padding: 20px;
-    background-color: #2e1d52;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-    flex-grow: 1;
+    border-left: 5px solid #00FFFF; /* Неоновый Циан */
+    background-color: rgba(255, 255, 255, 0.03); /* Легкий внутренний фон */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
 }
 
-section {
-    margin-bottom: 40px;
-    padding: 20px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-}
-
-section:last-child {
-    border-bottom: none;
-}
-
-/* Анимация появления при скролле */
+/* Анимация появления */
 .fade-in {
     opacity: 0;
+    transition: opacity 0.7s ease-in, transform 0.7s ease-in;
     transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .fade-in.active {
@@ -140,346 +126,151 @@ section:last-child {
     transform: translateY(0);
 }
 
-/* Стили для ссылок в источниках */
+/* Стили для ссылок в списке */
 .sources-section ul {
     list-style: none;
-    padding: 0;
+    padding-left: 0;
 }
 
 .sources-section li {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     padding-left: 20px;
     position: relative;
 }
 
 .sources-section li::before {
-    content: '>';
+    content: "💡"; 
     position: absolute;
     left: 0;
-    color: #c988ef;
-    font-weight: bold;
+    top: 0;
 }
 
-/* Подвал */
+/* Footer - Прижат ко дну */
 .footer {
-    text-align: center;
+    margin-top: auto; 
+    background-color: #000000;
+    color: #A0C0FF;
     padding: 20px;
-    margin-top: 50px;
-    background-color: #130a24;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #999;
-    font-size: 0.9em;
-    flex-shrink: 0;
-}
-
-/* Анимация для "бам и баааам" - при наведении */
-strong {
-    position: relative;
-    display: inline-block;
-    cursor: help;
-    transition: color 0.3s ease;
-}
-
-strong:hover {
-    color: #e6e6fa;
-    animation: text-pulse 0.5s infinite alternate;
-}
-
-@keyframes text-pulse {
-    0% { transform: scale(1); text-shadow: 0 0 5px rgba(230, 230, 250, 0.5); }
-    100% { transform: scale(1.05); text-shadow: 0 0 10px rgba(230, 230, 250, 1); }
-}
-
-/* Анимация для "довольно важный аспект" - при наведении */
-p strong {
-    color: #a06eaf;
-}
-
-p strong:hover {
-    color: #7b4c8a;
-    animation: text-shake 0.3s infinite alternate;
-}
-
-@keyframes text-shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-2px); }
-    50% { transform: translateX(2px); }
-    75% { transform: translateX(-2px); }
-    100% { transform: translateX(0); }
-}
-
-/* Стили для навигации по статьям */
-.navigation-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.navigation-section li {
-    margin-bottom: 15px;
-}
-
-.navigation-section a {
-    display: block;
-    background-color: #3b2c6b;
-    padding: 15px 20px;
-    border-radius: 8px;
-    font-size: 1.1em;
-    color: #e6e6fa;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.navigation-section a:hover {
-    background-color: #4c3a8c;
-    transform: translateY(-3px);
-    text-decoration: none;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-}
-
-/* Медиа-запросы для адаптивности */
-@media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2em;
-    }
-
-    .hero-section .subtitle {
-        font-size: 1em;
-    }
-
-    .content-wrapper {
-        margin: 20px auto;
-        padding: 10px;
-    }
-
-    h2 {
-        font-size: 1.5em;
-    }
-
-    h3 {
-        font-size: 1.2em;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-section h1 {
-        font-size: 1.5em;
-    }
-
-    .hero-section .subtitle {
-        font-size: 0.9em;
-    }
-
-    .cta-button {
-        padding: 10px 20px;
-        font-size: 1em;
-    }
-}
-
-/* New theme for Real Life section */
-.real-life-hero {
-    background: linear-gradient(rgba(46, 29, 82, 0.7), rgba(46, 29, 82, 0.7)), url('https://via.placeholder.com/1920x1080/2e1d52/e6e6fa?text=REAL+LIFE') no-repeat center center/cover;
-    background-attachment: fixed;
-    animation: background-pulse-real-life 15s infinite alternate;
-}
-
-@keyframes background-pulse-real-life {
-    0% { background-size: 100% 100%; }
-    100% { background-size: 120% 120%; }
-}
-
-.real-life-hero .hero-content {
-    box-shadow: 0 0 20px rgba(126, 99, 178, 0.7);
-}
-
-/* New back button styling */
-.back-link-container {
     text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-
-.back-link {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #c988ef;
-    color: #e6e6fa;
-    border-radius: 5px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 5px 15px rgba(201, 136, 239, 0.4);
-}
-
-.back-link:hover {
-    background-color: #a06eaf;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(201, 136, 239, 0.6);
-}
-
-.back-link i {
-    margin-right: 10px;
-}
-
-/* Дополнительные стили для космических эффектов */
-.star-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    overflow: hidden;
-    z-index: -1;
-    pointer-events: none;
-}
-
-.star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    opacity: 0;
-    animation: twinkle 1s infinite alternate;
-}
-
-@keyframes twinkle {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-/* Стили для "космической пыли" */
-.particles-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.scroll-particle {
-    position: absolute;
-    background: #e6e6fa;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-@keyframes particle-move {
-    0% {
-        transform: translateY(0);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(-200px);
-        opacity: 0;
-    }
-}
-
-/* НОВЫЕ СТИЛИ для аккордеона */
-/* Стили для заголовков аккордеона */
-.accordion-header {
-    background-color: #3b2c6b;
-    color: #e6e6fa;
-    cursor: pointer;
-    padding: 15px 20px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: background-color 0.3s ease, border-radius 0.3s ease;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-family: 'Michroma', sans-serif;
+    font-size: 0.9em;
+    border-top: 3px solid #FF0055;
+    box-shadow: 0 -5px 20px rgba(255, 0, 85, 0.3);
     position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    margin-top: 15px;
-    display: flex; /* Для выравнивания заголовка и иконки */
+    z-index: 10; 
+}
+
+.footer a {
+    color: #00FFFF;
+}
+
+/* Стили для аккордеона */
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.accordion-header {
+    background-color: #1A2B3A; /* Темный фон */
+    color: #FF0055; /* Неоновый Красный */
+    padding: 15px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, margin-bottom 0.3s ease;
+    display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 0; 
+    border: 1px solid #3A4B5A;
 }
 
 .accordion-header:hover {
-    background-color: #4c3a8c;
+    background-color: #2A3B4A; 
+    border-color: #00FFFF;
 }
 
-.accordion-header h3 {
-    margin: 0;
-    padding: 0;
-    color: inherit;
-    text-shadow: none;
-    flex-grow: 1; /* Чтобы заголовок занимал доступное пространство */
+.accordion-header.active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #3A4B5A;
+    margin-bottom: 0; 
 }
 
-/* Иконка-стрелка */
 .accordion-header .icon {
-    font-size: 1em;
-    margin-left: 10px;
     transition: transform 0.3s ease;
+    font-size: 1.2em;
 }
 
-/* Стили для содержимого аккордеона */
+.accordion-header.active .icon {
+    transform: rotate(180deg); 
+}
+
 .accordion-content {
-    background-color: #2e1d52;
+    max-height: 0;
     overflow: hidden;
-    max-height: 0; /* Изначально скрываем содержимое */
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out; /* Увеличили длительность и добавили padding */
+    background-color: #0A1B2A; 
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; 
     border-radius: 0 0 8px 8px;
-    padding: 0 20px; /* Изначально 0 padding по вертикали */
-    position: relative; /* Важно для позиционирования частиц */
+    padding: 0 20px; 
+    position: relative; 
+    border: 1px solid #3A4B5A;
+    border-top: none;
+    box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+.accordion-content.active {
+    max-height: 1000px; 
+    padding: 20px; 
 }
 
 .accordion-content ul {
     list-style: none;
-    padding: 0; /* Убрали padding сверху, он будет через accordion-content */
+    padding: 0; 
     margin: 0;
 }
 
+/* --- ФИКС: КНОПКИ НА ВСЮ ШИРИНУ! --- */
 .accordion-content li {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
-.accordion-content li:last-child {
-    margin-bottom: 0;
+.accordion-content li a {
+    display: block; /* ГЛАВНЫЙ ФИКС: ССЫЛКА РАСТЯНУТА НА ВСЮ ШИРИНУ! */
+    padding: 12px 15px; 
+    background-color: #1A2B3A; 
+    color: #E6F0FF;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, transform 0.2s ease, border 0.2s ease;
+    border-left: 3px solid #FF0055; /* Красная Новогодняя Лента */
+    box-shadow: 0 0 5px rgba(255, 0, 85, 0.2);
 }
 
-
-/* Стили для активного состояния */
-.accordion-header.active {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    background-color: #4c3a8c;
-    margin-bottom: 0;
+.accordion-content li a:hover {
+    background-color: #2A3B4A; 
+    color: #00FFFF;
+    transform: translateX(5px);
+    border-left: 3px solid #00FFFF; /* Ледяной Акцент */
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
+/* ----------------------------------- */
 
-.accordion-header.active .icon {
-    transform: rotate(180deg); /* Поворот иконки */
-}
 
-.accordion-content.active {
-    max-height: 1000px; /* Установите достаточно большое значение, чтобы вместить весь контент */
-    padding: 20px; /* Добавляем padding при открытии */
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-}
-
-/* Новые стили для анимированных частиц */
-.accordion-particle {
-    position: absolute;
-    background: #e6e6fa;
+/* Стили для снежинок (нужны для JS) */
+.snowflake {
+    position: fixed; 
+    top: -10px;
+    background-color: #00FFFF; /* Яркий Неоновый Циан - Холодный снег */
     border-radius: 50%;
-    opacity: 0;
-    animation: particle-burst 0.8s ease-out forwards;
+    pointer-events: none;
+    opacity: 0.8;
+    z-index: 0; 
+    animation: fall linear infinite;
+    box-shadow: 0 0 7px rgba(0, 255, 255, 0.9);
 }
 
-@keyframes particle-burst {
-    0% {
-        transform: scale(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(1);
-        opacity: 0;
+/* Анимация падения снега */
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
     }
 }

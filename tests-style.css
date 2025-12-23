@@ -1,3 +1,4 @@
+/* tests-style.css - Агрессивный Неоновый Новый Год */
 /* Стили, специфичные для тестов */
 #quiz-section {
     display: none;
@@ -5,281 +6,206 @@
 }
 
 .test-container {
-    background-color: #2a2a44;
+    /* Фоновый цвет для тестов: Насыщенный Зимний Синий */
+    background-color: #0A1B2A; 
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); /* Ледяное свечение */
     margin-bottom: 20px;
+    border: 1px solid #00FFFF;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .test-container:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 5px 40px rgba(255, 0, 85, 0.7); /* Красное свечение при наведении */
 }
 
 .test-container h2 {
-    color: #ffcc00;
+    color: #FF0055; /* Неоновый Красный */
     text-align: center;
     margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(255, 0, 85, 0.8);
 }
 
 .test-links a {
     font-size: 1.2em;
-    color: #00ff80;
+    color: #E6F0FF; 
     display: block;
     padding: 15px;
     margin: 10px 0;
-    background-color: #3a3a5a;
+    background-color: #1A2B3A; /* Более темный фон для ссылок */
     border-radius: 8px;
     text-align: center;
     transition: all 0.3s ease;
     text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border: 1px solid #FF0055;
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
 }
 
 .test-links a:hover {
-    background-color: #4a4a6a;
+    background-color: #2A3B4A; 
+    color: #00FFFF; /* Неоновый Циан */
+    border-color: #00FFFF;
     transform: scale(1.02);
-    color: #ffcc00;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
 
+/* Стили для вопросов */
 .question {
-    margin-bottom: 25px;
-    font-size: 1.1em;
-    background-color: #3a3a5a;
-    padding: 20px;
+    background-color: #1A3B4A; 
+    padding: 15px;
+    margin-bottom: 20px;
     border-radius: 8px;
-    border: 2px solid #ffcc00;
-    transition: all 0.3s ease;
+    border-left: 5px solid #00FFFF; /* Голубая/Ледяная полоса */
+    box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.2);
 }
 
-.question:hover {
-    border-color: #00ff80;
-    box-shadow: 0 0 15px rgba(0, 255, 128, 0.5);
+.question p {
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Стили для вариантов ответа */
+.options {
+    display: flex;
+    flex-direction: column;
 }
 
 .options label {
-    display: block;
-    background-color: #333;
-    padding: 15px;
-    margin: 8px 0;
+    background-color: #0A1B2A; 
+    padding: 10px;
+    margin-bottom: 8px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s ease, border 0.2s ease;
     border: 1px solid transparent;
 }
 
 .options label:hover {
-    background-color: #444;
-    transform: translateX(5px);
+    background-color: #1A2B3A; 
+    border: 1px solid #FF0055;
+    color: #FF0055;
 }
 
-input[type="radio"] {
+.options input[type="radio"] {
     margin-right: 10px;
 }
 
-#submit-button, #back-to-tests-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    font-family: 'Press Start 2P', cursive;
-    cursor: pointer;
-    margin-top: 30px;
-    border: none;
-    text-transform: uppercase;
-}
-
-#submit-button.cta-button, #back-to-tests-button.cta-button {
-    background: linear-gradient(45deg, #ff6b6b, #ffcc00);
-    color: #1a1a2e;
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-    transition: all 0.3s ease;
-}
-
-#submit-button.cta-button:hover, #back-to-tests-button.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
-}
-
+/* Стили для результатов */
 #result {
-    margin-top: 25px;
-    padding: 25px;
-    border-radius: 8px;
-    background-color: #1a1a2e;
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid #FF0055;
+    border-radius: 10px;
     text-align: center;
-    border: 2px solid #00ff80;
-    animation: fade-in 0.5s ease-out forwards;
+    background-color: rgba(255, 0, 85, 0.1);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
 }
 
 #result h3 {
+    color: #00FFFF;
     margin-top: 0;
-    color: #00ff80;
-    animation: neon-glow 1.5s ease-in-out infinite alternate;
 }
 
-#result p {
-    font-size: 1.2em;
-    color: #ffcc00;
+/* Кнопка "Собственно говоря, проверить!" */
+#submit-button {
+    margin-top: 20px;
+    width: 100%;
 }
 
-/* Highlight styles */
+/* Стили для правильных/неправильных ответов после проверки */
 .options label.correct {
-    background-color: #4caf50;
-    color: white;
-    font-weight: bold;
-    border-color: #4caf50;
-    animation: none;
+    background-color: #00CC00; /* Зеленый (Успех) */
+    color: #000B1A;
 }
+
 .options label.incorrect {
-    background-color: #f44336;
-    color: white;
-    font-weight: bold;
-    border-color: #f44336;
-    animation: none;
+    background-color: #FF3333; /* Красный (Ошибка) */
+    color: #000B1A;
 }
 
-/* Уникальные стили для каждого теста */
-/* Ladder-Push */
+/* --- Стили для разных тестов (Адаптация под новую палитру) --- */
+
+/* Ladder Push */
 body.test-ladderPush .test-container {
-    background-color: #2b3990;
-}
-
-body.test-ladderPush .test-container h2 {
-    color: #ffd700;
-}
-
-body.test-ladderPush .question {
-    background-color: #3b49a0;
-    border-color: #ffd700;
-}
-
-body.test-ladderPush .options label:hover {
-    background-color: #4b59b0;
+    background-color: #0A1B2A;
 }
 
 /* AWP vs AUG */
 body.test-awpVsAug .test-container {
-    background-color: #3e2f5b;
+    background-color: #1A0A3A;
 }
-
 body.test-awpVsAug .test-container h2 {
-    color: #9cff9b;
+    color: #FF00FF; 
 }
-
 body.test-awpVsAug .question {
-    background-color: #4e3f6b;
-    border-color: #9cff9b;
+    border-color: #FF00FF;
 }
 
-body.test-awpVsAug .options label:hover {
-    background-color: #5e4f7b;
-}
-
-/* B-rush */
+/* B Rush */
 body.test-bRush .test-container {
-    background-color: #9c3327;
+    background-color: #0A3A2A;
 }
-
 body.test-bRush .test-container h2 {
-    color: #ffe66d;
+    color: #00FF99;
 }
-
 body.test-bRush .question {
-    background-color: #ac4337;
-    border-color: #ffe66d;
-}
-
-body.test-bRush .options label:hover {
-    background-color: #bc5347;
+    border-color: #00FF99;
 }
 
 /* Cowboy Tactic */
 body.test-cowboyTactic .test-container {
-    background-color: #7b4c2b;
+    background-color: #3A2A0A;
 }
-
 body.test-cowboyTactic .test-container h2 {
-    color: #ffc971;
+    color: #FFD000;
 }
-
 body.test-cowboyTactic .question {
-    background-color: #8b5c3b;
-    border-color: #ffc971;
-}
-
-body.test-cowboyTactic .options label:hover {
-    background-color: #9b6c4b;
+    border-color: #FFD000;
 }
 
 /* Colonel Lowtaberenco */
 body.test-colonelLowtaberenco .test-container {
-    background-color: #5d2b7b;
+    background-color: #2A0A3A;
 }
-
 body.test-colonelLowtaberenco .test-container h2 {
-    color: #d1b4ff;
+    color: #AA00FF;
 }
-
 body.test-colonelLowtaberenco .question {
-    background-color: #6d3b8b;
-    border-color: #d1b4ff;
-}
-
-body.test-colonelLowtaberenco .options label:hover {
-    background-color: #7d4b9b;
+    border-color: #AA00FF;
 }
 
 /* Chertolet */
 body.test-chertolet .test-container {
-    background-color: #2b7b5d;
+    background-color: #0A3A3A;
 }
-
 body.test-chertolet .test-container h2 {
-    color: #b4ffd1;
+    color: #00FFFF;
 }
-
 body.test-chertolet .question {
-    background-color: #3b8b6d;
-    border-color: #b4ffd1;
-}
-
-body.test-chertolet .options label:hover {
-    background-color: #4b9b7d;
+    border-color: #00FFFF;
 }
 
 /* Real Life */
 body.test-realLife .test-container {
-    background-color: #7b2b2b;
+    background-color: #3A0A0A;
 }
-
 body.test-realLife .test-container h2 {
-    color: #ffc9c9;
+    color: #FF6666;
 }
-
 body.test-realLife .question {
-    background-color: #8b3b3b;
-    border-color: #ffc9c9;
-}
-
-body.test-realLife .options label:hover {
-    background-color: #9b4b4b;
+    border-color: #FF6666;
 }
 
 /* Marathon Desmatch */
 body.test-marathonDesmatch .test-container {
-    background-color: #2b5d7b;
+    background-color: #3A3A0A;
 }
-
 body.test-marathonDesmatch .test-container h2 {
-    color: #c9ffc9;
+    color: #FFFF00;
 }
-
 body.test-marathonDesmatch .question {
-    background-color: #3b6d8b;
-    border-color: #c9ffc9;
-}
-
-body.test-marathonDesmatch .options label:hover {
-    background-color: #4b7d9b;
+    border-color: #FFFF00;
 }
