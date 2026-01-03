@@ -1,211 +1,124 @@
-/* tests-style.css - Агрессивный Неоновый Новый Год */
-/* Стили, специфичные для тестов */
-#quiz-section {
-    display: none;
-    animation: fade-in 0.8s ease-out forwards;
+/* tests-style.css */
+body {
+    background-color: #0b0b15;
+    color: #e6e6fa;
 }
 
-.test-container {
-    /* Фоновый цвет для тестов: Насыщенный Зимний Синий */
-    background-color: #0A1B2A; 
+#test-list-section {
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Карточки категорий */
+.test-category-card {
+    background: linear-gradient(145deg, #1e113a, #0d061f);
+    border: 1px solid rgba(201, 136, 239, 0.4);
+    border-radius: 20px;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); /* Ледяное свечение */
-    margin-bottom: 20px;
-    border: 1px solid #00FFFF;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
-.test-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 40px rgba(255, 0, 85, 0.7); /* Красное свечение при наведении */
-}
-
-.test-container h2 {
-    color: #FF0055; /* Неоновый Красный */
-    text-align: center;
+.category-title {
+    font-family: 'Michroma', sans-serif;
+    color: #00ff80;
+    font-size: 1.3em;
     margin-bottom: 25px;
-    text-shadow: 0 0 10px rgba(255, 0, 85, 0.8);
-}
-
-.test-links a {
-    font-size: 1.2em;
-    color: #E6F0FF; 
-    display: block;
-    padding: 15px;
-    margin: 10px 0;
-    background-color: #1A2B3A; /* Более темный фон для ссылок */
-    border-radius: 8px;
-    text-align: center;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    border: 1px solid #FF0055;
-    box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
-}
-
-.test-links a:hover {
-    background-color: #2A3B4A; 
-    color: #00FFFF; /* Неоновый Циан */
-    border-color: #00FFFF;
-    transform: scale(1.02);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-}
-
-/* Стили для вопросов */
-.question {
-    background-color: #1A3B4A; 
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border-left: 5px solid #00FFFF; /* Голубая/Ледяная полоса */
-    box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.2);
-}
-
-.question p {
-    font-size: 1.1em;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-/* Стили для вариантов ответа */
-.options {
+    text-transform: uppercase;
+    letter-spacing: 1px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
 }
 
-.options label {
-    background-color: #0A1B2A; 
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border 0.2s ease;
-    border: 1px solid transparent;
+.category-title i {
+    margin-right: 15px;
+    filter: drop-shadow(0 0 5px #00ff80);
 }
 
-.options label:hover {
-    background-color: #1A2B3A; 
-    border: 1px solid #FF0055;
-    color: #FF0055;
+/* Сетка ссылок */
+.test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
 }
 
-.options input[type="radio"] {
-    margin-right: 10px;
-}
-
-/* Стили для результатов */
-#result {
-    margin-top: 30px;
+.test-link {
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
     padding: 20px;
-    border: 2px solid #FF0055;
+    border-radius: 15px;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.test-link span {
+    color: #c988ef;
+    font-size: 1.2em;
+    transition: 0.3s;
+}
+
+.test-link:hover {
+    background: rgba(201, 136, 239, 0.15);
+    border-color: #c988ef;
+    transform: translateX(10px);
+}
+
+.test-link:hover span {
+    transform: translateX(5px);
+}
+
+/* Окно теста */
+.quiz-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #161625;
+    padding: 40px;
+    border-radius: 25px;
+    border: 2px solid #c988ef;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+.question-box {
+    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 20px;
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 6px solid #c988ef;
+    transition: 0.3s;
+}
+
+.option-item {
+    display: block;
+    margin: 10px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option-item:hover {
+    background: rgba(201, 136, 239, 0.2);
+}
+
+.result-box {
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 20px;
     text-align: center;
-    background-color: rgba(255, 0, 85, 0.1);
-    box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+    background: #000;
+    border: 2px solid #00ff80;
+    animation: pulse 2s infinite;
 }
 
-#result h3 {
-    color: #00FFFF;
-    margin-top: 0;
-}
-
-/* Кнопка "Собственно говоря, проверить!" */
-#submit-button {
-    margin-top: 20px;
-    width: 100%;
-}
-
-/* Стили для правильных/неправильных ответов после проверки */
-.options label.correct {
-    background-color: #00CC00; /* Зеленый (Успех) */
-    color: #000B1A;
-}
-
-.options label.incorrect {
-    background-color: #FF3333; /* Красный (Ошибка) */
-    color: #000B1A;
-}
-
-/* --- Стили для разных тестов (Адаптация под новую палитру) --- */
-
-/* Ladder Push */
-body.test-ladderPush .test-container {
-    background-color: #0A1B2A;
-}
-
-/* AWP vs AUG */
-body.test-awpVsAug .test-container {
-    background-color: #1A0A3A;
-}
-body.test-awpVsAug .test-container h2 {
-    color: #FF00FF; 
-}
-body.test-awpVsAug .question {
-    border-color: #FF00FF;
-}
-
-/* B Rush */
-body.test-bRush .test-container {
-    background-color: #0A3A2A;
-}
-body.test-bRush .test-container h2 {
-    color: #00FF99;
-}
-body.test-bRush .question {
-    border-color: #00FF99;
-}
-
-/* Cowboy Tactic */
-body.test-cowboyTactic .test-container {
-    background-color: #3A2A0A;
-}
-body.test-cowboyTactic .test-container h2 {
-    color: #FFD000;
-}
-body.test-cowboyTactic .question {
-    border-color: #FFD000;
-}
-
-/* Colonel Lowtaberenco */
-body.test-colonelLowtaberenco .test-container {
-    background-color: #2A0A3A;
-}
-body.test-colonelLowtaberenco .test-container h2 {
-    color: #AA00FF;
-}
-body.test-colonelLowtaberenco .question {
-    border-color: #AA00FF;
-}
-
-/* Chertolet */
-body.test-chertolet .test-container {
-    background-color: #0A3A3A;
-}
-body.test-chertolet .test-container h2 {
-    color: #00FFFF;
-}
-body.test-chertolet .question {
-    border-color: #00FFFF;
-}
-
-/* Real Life */
-body.test-realLife .test-container {
-    background-color: #3A0A0A;
-}
-body.test-realLife .test-container h2 {
-    color: #FF6666;
-}
-body.test-realLife .question {
-    border-color: #FF6666;
-}
-
-/* Marathon Desmatch */
-body.test-marathonDesmatch .test-container {
-    background-color: #3A3A0A;
-}
-body.test-marathonDesmatch .test-container h2 {
-    color: #FFFF00;
-}
-body.test-marathonDesmatch .question {
-    border-color: #FFFF00;
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px rgba(0, 255, 128, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(0, 255, 128, 0.5); }
+    100% { box-shadow: 0 0 10px rgba(0, 255, 128, 0.2); }
 }

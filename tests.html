@@ -3,56 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тесты Профессора Ладдеренко</title>
+    <title>Академия Ладдеренко | Центр Аттестации</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="tests-style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Michroma&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="hero-section">
         <div class="hero-content">
-            <h1>Тесты Профессора Ладдеренко</h1>
-            <p class="subtitle">Проверь себя, ученик! Достоин ли ты моего безумия?</p>
+            <h1 class="fade-in">АТТЕСТАЦИЯ ДЕГЕНЕРАТОВ</h1>
+            <p class="subtitle">Либо ты сдаешь тест, либо идешь удалять игру. Третьего не дано.</p>
         </div>
     </header>
 
     <main class="content-wrapper">
-        <section id="test-list-section" class="navigation-section fade-in">
-            <div class="test-container">
-                <h2>Выбери статью для проверки:</h2>
-                <div class="test-links">
-                    <a href="#" onclick="startTest('ladderPush')">Искусство Ладдер-Пуша в CS2</a>
-                    <a href="#" onclick="startTest('awpVsAug')">AWP vs. AUG "Гроза"</a>
-                    <a href="#" onclick="startTest('bRush')">Почему всегда B-rush?</a>
-                    <a href="#" onclick="startTest('cowboyTactic')">Ковбойская тактика</a>
-                    <a href="#" onclick="startTest('colonelLowtaberenco')">Полковник Лоутаберенко</a>
-                    <a href="#" onclick="startTest('chertolet')">Чертолет в PUBG</a>
-                    <a href="#" onclick="startTest('realLife')">Тактильный Контакт</a>
-                    <a href="#" onclick="startTest('marathonDesmatch')">Марафонский Дезматч</a>
+        <section id="test-list-section">
+            
+            <div class="test-category-card">
+                <h2 class="category-title"><i class="fas fa-gamepad"></i> Киберспортивное безумие</h2>
+                <div class="test-grid">
+                    <a href="#" class="test-link" onclick="startTest('ladderPush')">Искусство Ладдер-Пуша <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('awpVsAug')">AWP vs. AUG "Гроза" <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('bRush')">Почему всегда B-rush? <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('cowboyTactic')">Ковбойская тактика <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('chertolet')">Чертолет в PUBG <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('music')">Музыкальный аспект <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('twoWoodpeckers')">Minecraft: Два Дятла <span>→</span></a>
                 </div>
             </div>
-            <div class="back-link-container">
-                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Назад к методичкам</a>
+
+            <div class="test-category-card">
+                <h2 class="category-title"><i class="fas fa-user-ninja"></i> Социопатия и Выживание</h2>
+                <div class="test-grid">
+                    <a href="#" class="test-link" onclick="startTest('realLife')">Тактильный контакт <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('friendTactic')">Тактика Выходки <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('prolik')">Ода Пролетариату <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('skuf')">Путь Скуфа <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('marathonDesmatch')">Марафонский Дезматч <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('apocalypse')">Апокалипсис Невежества <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('taxiHolocaust')">🚕 ТАКСО-ХОЛОКОСТ <span>→</span></a>
+                </div>
+            </div>
+
+            <div class="test-category-card">
+                <h2 class="category-title"><i class="fas fa-brain"></i> Высшая Психология</h2>
+                <div class="test-grid">
+                    <a href="#" class="test-link" onclick="startTest('woman')">Женщины в CS2 <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('alone')">История Предательства <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('manifest')">Манифест Гения <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('farewell')">Экстренный уход <span>→</span></a>
+                    <a href="#" class="test-link" onclick="startTest('colonelLowtaberenco')">Личность Полковника <span>→</span></a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="index.html" class="back-link" style="color: #c988ef; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-chevron-left"></i> ВЕРНУТЬСЯ К ЛЕКЦИЯМ
+                </a>
             </div>
         </section>
 
-        <section id="quiz-section" class="navigation-section">
-            <div class="test-container">
-                <h2 id="test-title"></h2>
-                <form id="quiz-form">
-                    </form>
-                <button id="submit-button" class="cta-button" onclick="submitTest()">Собственно говоря, проверить!</button>
+        <section id="quiz-section" style="display: none;">
+            <div class="quiz-container">
+                <h2 id="test-title" style="text-align: center; color: #00ff80; font-family: 'Michroma', sans-serif;"></h2>
+                <hr style="border: 0; border-top: 1px solid rgba(201, 136, 239, 0.3); margin: 20px 0;">
+                <form id="quiz-form"></form>
+                <button class="cta-button" onclick="submitTest()" style="background: #00ff80; color: #000; padding: 20px; width: 100%; font-weight: bold; border: none; cursor: pointer; border-radius: 10px; font-size: 1.2em;">СДАТЬ ЭКЗАМЕН</button>
                 <div id="result"></div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <p>&copy; 2025 Ладдер-Пуш Мастер. Все права на безумие защищены.</p>
-    </footer>
-
-    <script src="script.js"></script>
     <script src="tests-script.js"></script>
 </body>
 </html>
