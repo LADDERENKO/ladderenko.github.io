@@ -10,9 +10,16 @@
 </head>
 <body>
     <header class="hero-section">
-        <div style="position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 100;">
-            <a href="login.html" class="cta-button" style="padding: 8px 15px; font-size: 0.7em; background: transparent; border: 1px solid #FF0055;">ВХОД</a>
-            <a href="register.html" class="cta-button" style="padding: 8px 15px; font-size: 0.7em; background: #00FFFF; color: #000;">РЕГИСТРАЦИЯ</a>
+        <div id="auth-header" style="position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 100; align-items: center;">
+            <div id="loading-auth" style="color: #00FFFF; font-size: 0.7em;">СИНХРОНИЗАЦИЯ...</div>
+            <div id="guest-tools" style="display: none; gap: 10px;">
+                <a href="login.html" class="cta-button" style="padding: 8px 15px; font-size: 0.7em; background: transparent; border: 1px solid #FF0055;">ВХОД</a>
+                <a href="register.html" class="cta-button" style="padding: 8px 15px; font-size: 0.7em; background: #00FFFF; color: #000;">РЕГИСТРАЦИЯ</a>
+            </div>
+            <div id="user-tools" style="display: none; gap: 15px; align-items: center;">
+                <span id="header-nickname" style="color: #00FF80; font-weight: bold; text-shadow: 0 0 10px #00FF80; font-family: 'Michroma', sans-serif; font-size: 0.8em;"></span>
+                <a href="profile.html" class="cta-button" style="padding: 8px 15px; font-size: 0.7em;">ПРОФИЛЬ</a>
+            </div>
         </div>
 
         <div class="hero-content">
@@ -29,14 +36,8 @@
             <p>Профессор Ладдеренко вернулся, и теперь вы получите доступ к **самым секретным** и **самым ебанутым** методикам, которые, сука, работают!</p>
         </section>
 
-        <div style="margin: 40px 0; text-align: center;" class="fade-in">
-            <h3 style="font-size: 0.9em; color: #A0C0FF; margin-bottom: 15px;">ЕЩЕ НЕ В СИСТЕМЕ?</h3>
-            <a href="register.html" class="cta-button" style="display: inline-block;">ВСТУПИТЬ В Г.О.В.Н.О.</a>
-        </div>
-
         <section class="navigation-section fade-in">
             <h2>Основы Гениальности: Секретные Методички</h2>
-            
             <div class="accordion-container">
                 
                 <button class="accordion-header"> 
@@ -120,25 +121,49 @@
                 </div>
             </div>
         </section>
+
+        <section id="comments-section" style="margin-top: 50px;"></section>
     </main>
 
     <footer class="footer">
         <p>&copy; 2025 Ладдер-Пуш Мастер. Все права на безумие защищены.</p>
-        <p>
-            Связаться с Профессором: 
-            <a href="https://t.me/LADDERENKO" target="_blank">
-                <i class="fab fa-telegram-plane"></i> Telegram-канал
-            </a>
-        </p>
-        <div style="text-align: right; padding: 10px; font-size: 0.8em; color: #5a5a72;">
-            <p style="margin-bottom: 5px;">Спонсор нашего безумия:</p>
-            <a href="https://dodopizza.ru/" target="_blank" style="display: block;">
-                <img src="dodo_pizza_logo.png" alt="Спонсор нашего безумия" style="width: 35px; opacity: 0.1; transition: opacity 0.3s ease;">
-            </a>
-            <p style="font-size: 0.7em; margin-top: 5px;">Нажми на логотип, чтобы получить пиццу в подарок. Или нет. Я не знаю. Я гений, а не курьер.</p>
-        </div>
+        <p>Связаться с Профессором: <a href="https://t.me/LADDERENKO" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram-канал</a></p>
     </footer>
 
     <script src="script.js"></script>
+    <script type="module" src="comments.js"></script> <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYX2Lr_OKT2yfqZCV5IYjNOZ2Bp4bZDRY",
+            authDomain: "ladder-aab8a.firebaseapp.com",
+            projectId: "ladder-aab8a",
+            appId: "1:558510161712:web:5e35ea602eeae4afb3d2f5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            const loading = document.getElementById('loading-auth');
+            const guest = document.getElementById('guest-tools');
+            const userBox = document.getElementById('user-tools');
+            const nickSpan = document.getElementById('header-nickname');
+
+            loading.style.display = 'none';
+            if (user) {
+                guest.style.display = 'none';
+                userBox.style.display = 'flex';
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                nickSpan.innerText = (userDoc.exists() && userDoc.data().nickname) ? userDoc.data().nickname.toUpperCase() : "АДЕПТ";
+            } else {
+                guest.style.display = 'flex';
+                userBox.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

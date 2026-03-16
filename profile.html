@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПРОФИЛЬ | Г.О.В.Н.О.</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-card { background: rgba(0, 255, 255, 0.05); border: 2px solid #00FFFF; padding: 25px; border-radius: 15px; margin-top: 30px; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-size: 0.7em; font-weight: bold; margin-left: 10px; border: 1px solid; text-shadow: 0 0 5px currentColor; }
+        .admin-panel { margin-top: 50px; border-top: 3px double #FF0055; padding-top: 20px; display: none; }
+        .user-item { background: rgba(255,255,255,0.02); padding: 15px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid #00FFFF; display: flex; justify-content: space-between; align-items: center; }
+        .custom-badge-creator { background: rgba(255, 0, 85, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #FF0055; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h2 id="welcome-title">ЛИЧНОЕ ДЕЛО</h2>
+        
+        <div class="profile-card">
+            <p>Статус: <span id="my-badge-display"></span></p>
+            <div style="margin: 20px 0;">
+                <input type="text" id="new-nick" class="auth-input" placeholder="НОВОЕ ПОГОНЯЛО">
+                <button id="save-nick-btn" class="cta-button" style="padding: 10px; font-size: 0.8em;">СМЕНИТЬ НИК</button>
+            </div>
+            <button onclick="signOutUser()" style="color: #FF0055; background: none; border: 1px solid; padding: 5px 10px; cursor: pointer;">ВЫЙТИ</button>
+        </div>
+
+        <div id="admin-area" class="admin-panel">
+            <h2 style="color: #FF0055;">АДМИН-ЦЕНТР</h2>
+            <div class="custom-badge-creator">
+                <h4>КОНСТРУКТОР ПЛАШЕК:</h4>
+                <input type="text" id="badge-text" class="auth-input" placeholder="ТЕКСТ (НАПР. ГЕНИЙ)" style="width: 60%;">
+                <input type="color" id="badge-color" value="#00FFFF">
+                <p style="font-size: 0.7em; margin-top: 5px;">Выбери цвет, введи текст и нажми кнопку у юзера ниже</p>
+            </div>
+            <div id="all-users-list"></div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;"><a href="index.html">← НА ГЛАВНУЮ</a></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYX2Lr_OKT2yfqZCV5IYjNOZ2Bp4bZDRY",
+            authDomain: "ladder-aab8a.firebaseapp.com",
+            projectId: "ladder-aab8a",
+            appId: "1:558510161712:web:5e35ea602eeae4afb3d2f5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const ADMIN_EMAIL = "sergsergserg@gmail.com"; 
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) { window.location.href = "login.html"; return; }
+            
+            const snap = await getDoc(doc(db, "users", user.uid));
+            if(snap.exists()){
+                const d = snap.data();
+                document.getElementById('welcome-title').innerText = d.nickname ? d.nickname.toUpperCase() : "АДЕПТ";
+                renderBadge(d.badgeText, d.badgeColor, document.getElementById('my-badge-display'));
+            }
+
+            if (user.email === ADMIN_EMAIL) {
+                document.getElementById('admin-area').style.display = 'block';
+                initAdminList();
+            }
+        });
+
+        document.getElementById('save-nick-btn').addEventListener('click', async () => {
+            const nick = document.getElementById('new-nick').value.trim();
+            if (nick) {
+                await updateDoc(doc(db, "users", auth.currentUser.uid), { nickname: nick });
+                location.reload();
+            }
+        });
+
+        function initAdminList() {
+            onSnapshot(collection(db, "users"), (snap) => {
+                const container = document.getElementById('all-users-list');
+                container.innerHTML = '';
+                snap.forEach(uDoc => {
+                    const data = uDoc.data();
+                    const div = document.createElement('div');
+                    div.className = 'user-item';
+                    div.innerHTML = `
+                        <span>${data.nickname || 'Аноним'} (${data.email})</span>
+                        <button class="cta-button" style="padding:5px 10px; font-size:0.6em;" onclick="giveCustomBadge('${uDoc.id}')">ВЫДАТЬ</button>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+        }
+
+        window.giveCustomBadge = async (targetUid) => {
+            const text = document.getElementById('badge-text').value.toUpperCase() || "АДЕПТ";
+            const color = document.getElementById('badge-color').value;
+            await updateDoc(doc(db, "users", targetUid), { badgeText: text, badgeColor: color });
+            alert("ПЛАШКА ВЫДАНА!");
+        };
+
+        function renderBadge(text, color, el) {
+            if (!text) { el.innerHTML = "НЕТ СТАТУСА"; return; }
+            el.innerHTML = `<span class="badge" style="color:${color}; border-color:${color};">${text}</span>`;
+        }
+
+        window.signOutUser = () => signOut(auth).then(() => location.href = "index.html");
+    </script>
+</body>
+</html>
