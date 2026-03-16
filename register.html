@@ -2,39 +2,36 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>РЕГИСТРАЦИЯ | Г.О.В.Н.О.</title>
+    <title>РЕГИСТРАЦИЯ | ЛАДДЕР-ПУШ</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="content-wrapper fade-in active" style="max-width:400px; margin: 100px auto; text-align:center;">
-        <h2>РЕГИСТРАЦИЯ</h2>
+        <h2 style="font-family: 'Michroma'; color: #00FFFF;">СТАТЬ АДЕПТОМ</h2>
         <div style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
             <input type="email" id="email" class="auth-input" placeholder="EMAIL">
             <input type="password" id="password" class="auth-input" placeholder="ПАРОЛЬ">
-            <button id="reg-btn" class="cta-button">СОЗДАТЬ АККАУНТ</button>
+            <button id="reg-btn" class="cta-button">ЗАРЕГИСТРИРОВАТЬСЯ</button>
         </div>
-        <p id="msg" style="margin-top:15px;"></p>
+        <p id="msg" style="margin-top:15px; font-size: 0.8em; color: #FF0055;"></p>
+        <div style="margin-top: 20px;"><a href="index.html" style="color: #00FFFF; text-decoration: none;">← НА ГЛАВНУЮ</a></div>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCYX2Lr_OKT2yfqZCV5IYjNOZ2Bp4bZDRY",
-            authDomain: "ladder-aab8a.firebaseapp.com",
-            projectId: "ladder-aab8a",
-            appId: "1:558510161712:web:5e35ea602eeae4afb3d2f5"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        import { auth, db } from "./firebase-config.js";
+        import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
         document.getElementById('reg-btn').addEventListener('click', async () => {
-            const email = document.getElementById('email').value.trim();
+            const email = document.getElementById('email').value.trim(); // .trim() УДАЛЯЕТ ПРОБЕЛЫ
             const pass = document.getElementById('password').value;
+            const msg = document.getElementById('msg');
+
+            if (!email || !pass) {
+                msg.innerText = "ЗАПОЛНИ ВСЕ ПОЛЯ!";
+                return;
+            }
+
             try {
                 const cred = await createUserWithEmailAndPassword(auth, email, pass);
                 await setDoc(doc(db, "users", cred.user.uid), {
@@ -43,8 +40,12 @@
                     badgeText: "НОВИЧОК",
                     badgeColor: "#00FF80"
                 });
-                location.href = "index.html";
-            } catch (e) { document.getElementById('msg').innerText = "ОШИБКА: " + e.message; }
+                msg.style.color = "#00FF80";
+                msg.innerText = "УСПЕХ! ВХОДИМ...";
+                setTimeout(() => location.href = "index.html", 1000);
+            } catch (e) {
+                msg.innerText = "ОШИБКА: " + e.message;
+            }
         });
     </script>
 </body>
