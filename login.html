@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВХОД | Г.О.В.Н.О.</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container { max-width: 450px; margin: 100px auto; text-align: center; position: relative; z-index: 10; }
+        .auth-form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+        .auth-input { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid #FF0055; 
+            padding: 12px; 
+            color: #E6F0FF; 
+            font-family: 'Space Mono', monospace; 
+            border-radius: 5px; 
+            outline: none; 
+            transition: 0.3s;
+        }
+        .auth-input:focus { border-color: #00FFFF; box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); }
+        #message { margin-top: 15px; min-height: 1.5em; font-weight: bold; font-size: 0.9em; }
+        .auth-nav { margin-top: 20px; font-size: 0.8em; }
+        .auth-nav a { color: #FF0055; text-decoration: none; border-bottom: 1px solid transparent; }
+        .auth-nav a:hover { border-bottom: 1px solid #FF0055; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper auth-container fade-in active">
+        <h2 style="color: #00FFFF; text-shadow: 0 0 10px #00FFFF;">АВТОРИЗАЦИЯ</h2>
+        <p class="subtitle">Предъявите учетные данные</p>
+        
+        <div class="auth-form">
+            <input type="email" id="email" class="auth-input" placeholder="EMAIL" required>
+            <input type="password" id="password" class="auth-input" placeholder="ПАРОЛЬ" required>
+            <button id="login-btn" class="cta-button" style="background-color: #FF0055; box-shadow: 0 0 20px rgba(255,0,85,0.4);">ВОЙТИ В СИСТЕМУ</button>
+        </div>
+
+        <p id="message"></p>
+        
+        <div class="auth-nav">
+            <p>Нет аккаунта? <a href="register.html">Создать новый</a></p>
+            <br>
+            <a href="index.html">← ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYX2Lr_OKT2yfqZCV5IYjNOZ2Bp4bZDRY",
+            authDomain: "ladder-aab8a.firebaseapp.com",
+            databaseURL: "https://ladder-aab8a-default-rtdb.firebaseio.com",
+            projectId: "ladder-aab8a",
+            storageBucket: "ladder-aab8a.firebasestorage.app",
+            messagingSenderId: "558510161712",
+            appId: "1:558510161712:web:5e35ea602eeae4afb3d2f5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const btn = document.getElementById('login-btn');
+        const msg = document.getElementById('message');
+
+        btn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                msg.style.color = "#00FF80";
+                msg.innerText = "ЛИЧНОСТЬ ПОДТВЕРЖДЕНА. ВХОДИМ...";
+                setTimeout(() => window.location.href = "index.html", 1200);
+            } catch (e) {
+                msg.style.color = "#FF0055";
+                msg.innerText = "НЕВЕРНЫЕ ДАННЫЕ ИЛИ ПОЛЬЗОВАТЕЛЯ НЕТ.";
+            }
+        });
+    </script>
+</body>
+</html>

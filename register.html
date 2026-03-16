@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РЕГИСТРАЦИЯ | Г.О.В.Н.О.</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container { max-width: 450px; margin: 80px auto; text-align: center; position: relative; z-index: 10; }
+        .auth-form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+        .auth-input { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid #00FFFF; 
+            padding: 12px; 
+            color: #E6F0FF; 
+            font-family: 'Space Mono', monospace; 
+            border-radius: 5px; 
+            outline: none; 
+            transition: 0.3s;
+        }
+        .auth-input:focus { border-color: #FF0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
+        #message { margin-top: 15px; min-height: 1.5em; font-weight: bold; font-size: 0.9em; }
+        .auth-nav { margin-top: 20px; font-size: 0.8em; }
+        .auth-nav a { color: #00FFFF; text-decoration: none; border-bottom: 1px solid transparent; }
+        .auth-nav a:hover { border-bottom: 1px solid #00FFFF; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper auth-container fade-in active">
+        <h2 style="color: #FF0055; text-shadow: 0 0 10px #FF0055;">РЕГИСТРАЦИЯ АДЕПТА</h2>
+        <p class="subtitle">Вступи в ряды элиты Лаборатории</p>
+        
+        <div class="auth-form">
+            <input type="email" id="email" class="auth-input" placeholder="EMAIL" required>
+            <input type="password" id="password" class="auth-input" placeholder="ПАРОЛЬ (ОТ 6 СИМВОЛОВ)" required>
+            <button id="register-btn" class="cta-button">УТВЕРДИТЬ КАНДИДАТУРУ</button>
+        </div>
+
+        <p id="message"></p>
+        
+        <div class="auth-nav">
+            <p>Уже есть доступ? <a href="login.html">Войти в систему</a></p>
+            <br>
+            <a href="index.html">← ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYX2Lr_OKT2yfqZCV5IYjNOZ2Bp4bZDRY",
+            authDomain: "ladder-aab8a.firebaseapp.com",
+            databaseURL: "https://ladder-aab8a-default-rtdb.firebaseio.com",
+            projectId: "ladder-aab8a",
+            storageBucket: "ladder-aab8a.firebasestorage.app",
+            messagingSenderId: "558510161712",
+            appId: "1:558510161712:web:5e35ea602eeae4afb3d2f5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const btn = document.getElementById('register-btn');
+        const msg = document.getElementById('message');
+
+        btn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+
+            if (!email || !pass) {
+                msg.style.color = "#FF0055";
+                msg.innerText = "ПУСТЫЕ ПОЛЯ? ТЫ СЕРЬЕЗНО?";
+                return;
+            }
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, pass);
+                msg.style.color = "#00FF80";
+                msg.innerText = "ДОСТУП РАЗРЕШЕН. ИНИЦИАЦИЯ ЗАВЕРШЕНА.";
+                setTimeout(() => window.location.href = "index.html", 1500);
+            } catch (e) {
+                msg.style.color = "#FF0055";
+                if (e.code === 'auth/email-already-in-use') msg.innerText = "ЭТОТ EMAIL УЖЕ В БАЗЕ!";
+                else if (e.code === 'auth/weak-password') msg.innerText = "СЛИШКОМ СЛАБЫЙ ПАРОЛЬ!";
+                else msg.innerText = "ОШИБКА: " + e.message;
+            }
+        });
+    </script>
+</body>
+</html>
