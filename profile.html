@@ -11,7 +11,7 @@
     <header class="hero-section" style="min-height: auto; padding: 40px 0;">
         <div class="hero-content">
             <h1 style="font-size: 2em; text-shadow: 0 0 15px #FF0055;">ЛИЧНЫЙ ТЕРМИНАЛ</h1>
-            <p id="user-email" style="color: #00FFFF; opacity: 0.7; font-family: 'Space Mono';"></p>
+            <p id="user-email-display" style="color: #00FFFF; opacity: 0.7; font-family: 'Space Mono';"></p>
         </div>
     </header>
 
@@ -35,20 +35,20 @@
                 </div>
             </div>
 
-            <button id="save-my-btn" class="cta-button" style="width: 100%; padding: 12px; font-size: 0.8em;">ОБНОВИТЬ МОЙ ПРОФИЛЬ</button>
+            <button id="save-my-btn" class="cta-button" style="width: 100%; padding: 12px;">ОБНОВИТЬ ПРОФИЛЬ</button>
         </section>
 
-        <section id="admin-panel" class="fade-in active" style="display: none; max-width: 600px; margin: 0 auto; background: rgba(255, 0, 85, 0.05); padding: 25px; border-radius: 15px; border: 2px solid #FF0055;">
-            <h3 style="color: #FF0055; font-family: 'Michroma'; font-size: 0.9em; margin-bottom: 20px;">⚡ ТЕРМИНАЛ УПРАВЛЕНИЯ (ADMIN)</h3>
+        <section id="admin-panel" style="display: none; max-width: 600px; margin: 0 auto; background: rgba(255, 0, 85, 0.1); padding: 25px; border-radius: 15px; border: 2px solid #FF0055; box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);">
+            <h3 style="color: #FF0055; font-family: 'Michroma'; font-size: 0.9em; margin-bottom: 20px;">⚡ ТЕРМИНАЛ УПРАВЛЕНИЯ (ADMIN ONLY)</h3>
             
             <div style="margin-bottom: 15px;">
-                <label style="display: block; color: #FF0055; font-size: 0.7em; margin-bottom: 5px;">UID ПОЛЬЗОВАТЕЛЯ:</label>
-                <input type="text" id="admin-target-uid" class="auth-input" placeholder="Вставь UID из базы..." style="width: 100%; border-color: #FF0055;">
+                <label style="display: block; color: #FF0055; font-size: 0.7em; margin-bottom: 5px;">UID ЦЕЛИ (ИЗ FIREBASE):</label>
+                <input type="text" id="admin-target-uid" class="auth-input" placeholder="Вставь UID пользователя..." style="width: 100%; border-color: #FF0055;">
             </div>
 
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <div style="flex-grow: 1;">
-                    <label style="display: block; color: #FF0055; font-size: 0.7em; margin-bottom: 5px;">УСТАНОВИТЬ ПЛАШКУ:</label>
+                    <label style="display: block; color: #FF0055; font-size: 0.7em; margin-bottom: 5px;">НОВАЯ ПЛАШКА:</label>
                     <input type="text" id="admin-badge" class="auth-input" placeholder="Напр: МОДЕРАТОР" style="width: 100%;">
                 </div>
                 <div style="width: 100px;">
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <button id="admin-save-btn" class="cta-button" style="width: 100%; padding: 12px; background: #FF0055;">ПРИМЕНИТЬ К ПОЛЬЗОВАТЕЛЮ</button>
+            <button id="admin-save-btn" class="cta-button" style="width: 100%; padding: 12px; background: #FF0055;">ПЕРЕПИСАТЬ ДАННЫЕ ЦЕЛИ</button>
         </section>
 
         <p id="status-msg" style="margin-top: 20px; text-align: center; font-family: 'Space Mono'; font-size: 0.8em; min-height: 1.2em;"></p>
@@ -72,73 +72,66 @@
     <script type="module">
         import { auth, db } from "./firebase-config.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-        import { doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        import { doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-        // ТВОЙ EMAIL ТУТ (ЗАМЕНИ НА СВОЙ)
-        const ADMIN_EMAIL = "sergsergserg@gmail.com"; 
+        // ВНИМАНИЕ: ВПИШИ СЮДА СВОЙ EMAIL В КАВЫЧКАХ!
+        const MY_ADMIN_EMAIL = "sergsergserg@gmail.com"; 
 
         const status = document.getElementById('status-msg');
-
-        // Элементы "Мой профиль"
-        const myNick = document.getElementById('my-nickname');
-        const myBadge = document.getElementById('my-badge');
-        const myColor = document.getElementById('my-color');
-
-        // Элементы "Админка"
-        const adminPanel = document.getElementById('admin-panel');
-        const targetUid = document.getElementById('admin-target-uid');
-        const adminBadge = document.getElementById('admin-badge');
-        const adminColor = document.getElementById('admin-color');
+        const adminSection = document.getElementById('admin-panel');
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                document.getElementById('user-email').innerText = user.email.toUpperCase();
+                console.log("Вход выполнен как:", user.email); // Проверь это в консоли F12
+                document.getElementById('user-email-display').innerText = user.email.toUpperCase();
                 
-                // 1. Показываем админку, если email совпадает
-                if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-                    adminPanel.style.display = 'block';
+                // ПРОВЕРКА НА АДМИНА
+                if (user.email.toLowerCase() === MY_ADMIN_EMAIL.toLowerCase()) {
+                    console.log("Админка активирована!");
+                    adminSection.style.display = 'block';
+                } else {
+                    console.log("Доступ к админке запрещен для:", user.email);
                 }
 
-                // 2. Загружаем данные текущего пользователя
+                // Загружаем личные данные
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
                     const d = userDoc.data();
-                    myNick.value = d.nickname || "";
-                    myBadge.value = d.badgeText || "";
-                    myColor.value = d.badgeColor || "#00FFFF";
+                    document.getElementById('my-nickname').value = d.nickname || "";
+                    document.getElementById('my-badge').value = d.badgeText || "";
+                    document.getElementById('my-color').value = d.badgeColor || "#00FFFF";
                 }
             } else {
                 location.href = "login.html";
             }
         });
 
-        // Сохранение своего профиля
+        // Кнопка сохранения своего профиля
         document.getElementById('save-my-btn').onclick = async () => {
             const user = auth.currentUser;
-            if (!user) return;
             try {
                 await setDoc(doc(db, "users", user.uid), {
-                    nickname: myNick.value.trim(),
-                    badgeText: myBadge.value.trim().toUpperCase(),
-                    badgeColor: myColor.value,
+                    nickname: document.getElementById('my-nickname').value.trim(),
+                    badgeText: document.getElementById('my-badge').value.trim().toUpperCase(),
+                    badgeColor: document.getElementById('my-color').value,
                     email: user.email
                 }, { merge: true });
                 showStatus("ПРОФИЛЬ ОБНОВЛЕН", "#00FF80");
-            } catch (e) { showStatus(e.message, "#FF0055"); }
+            } catch (e) { showStatus("ОШИБКА: " + e.message, "#FF0055"); }
         };
 
-        // Админ-сохранение (для чужого UID)
+        // Кнопка админки (для чужого UID)
         document.getElementById('admin-save-btn').onclick = async () => {
-            const uid = targetUid.value.trim();
-            if (!uid) { showStatus("ВВЕДИ UID ПОЛЬЗОВАТЕЛЯ!", "#FF0055"); return; }
+            const uid = document.getElementById('admin-target-uid').value.trim();
+            if (!uid) { showStatus("ВВЕДИ UID!", "#FF0055"); return; }
             
             try {
                 await updateDoc(doc(db, "users", uid), {
-                    badgeText: adminBadge.value.trim().toUpperCase(),
-                    badgeColor: adminColor.value
+                    badgeText: document.getElementById('admin-badge').value.trim().toUpperCase(),
+                    badgeColor: document.getElementById('admin-color').value
                 });
-                showStatus("ПЛАШКА УСТАНОВЛЕНА ДЛЯ " + uid, "#00FF80");
-            } catch (e) { showStatus("ОШИБКА: UID НЕ НАЙДЕН", "#FF0055"); }
+                showStatus("ДАННЫЕ ПОЛЬЗОВАТЕЛЯ ИЗМЕНЕНЫ", "#00FF80");
+            } catch (e) { showStatus("ОШИБКА: UID НЕ ВЕРЕН", "#FF0055"); }
         };
 
         function showStatus(text, color) {
