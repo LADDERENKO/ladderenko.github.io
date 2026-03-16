@@ -3,115 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ПРОФИЛЬ | Г.О.В.Н.О.</title>
+    <title>ПРОФИЛЬ АДЕПТА | ЛАДДЕР-ПУШ</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .profile-card { background: rgba(0, 255, 255, 0.05); border: 2px solid #00FFFF; padding: 25px; border-radius: 15px; margin-top: 30px; }
-        .badge { padding: 4px 10px; border-radius: 4px; font-size: 0.7em; font-weight: bold; margin-left: 10px; border: 1px solid; text-shadow: 0 0 5px currentColor; }
-        .admin-panel { margin-top: 50px; border-top: 3px double #FF0055; padding-top: 20px; display: none; }
-        .user-item { background: rgba(255,255,255,0.02); padding: 15px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid #00FFFF; display: flex; justify-content: space-between; align-items: center; }
-        .custom-badge-creator { background: rgba(255, 0, 85, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #FF0055; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="content-wrapper">
-        <h2 id="welcome-title">ЛИЧНОЕ ДЕЛО</h2>
-        
-        <div class="profile-card">
-            <p>Статус: <span id="my-badge-display"></span></p>
-            <div style="margin: 20px 0;">
-                <input type="text" id="new-nick" class="auth-input" placeholder="НОВОЕ ПОГОНЯЛО">
-                <button id="save-nick-btn" class="cta-button" style="padding: 10px; font-size: 0.8em;">СМЕНИТЬ НИК</button>
-            </div>
-            <button onclick="signOutUser()" style="color: #FF0055; background: none; border: 1px solid; padding: 5px 10px; cursor: pointer;">ВЫЙТИ</button>
+    <header class="hero-section" style="min-height: auto; padding: 50px 0;">
+        <div class="hero-content">
+            <h1 style="font-size: 2em;">ЛИЧНОЕ ДЕЛО АДЕПТА</h1>
+            <p id="user-email" style="color: #00FFFF; opacity: 0.7;"></p>
         </div>
+    </header>
 
-        <div id="admin-area" class="admin-panel">
-            <h2 style="color: #FF0055;">АДМИН-ЦЕНТР</h2>
-            <div class="custom-badge-creator">
-                <h4>КОНСТРУКТОР ПЛАШЕК:</h4>
-                <input type="text" id="badge-text" class="auth-input" placeholder="ТЕКСТ (НАПР. ГЕНИЙ)" style="width: 60%;">
-                <input type="color" id="badge-color" value="#00FFFF">
-                <p style="font-size: 0.7em; margin-top: 5px;">Выбери цвет, введи текст и нажми кнопку у юзера ниже</p>
+    <main class="content-wrapper">
+        <section class="fade-in active" style="max-width: 600px; margin: 0 auto; background: rgba(26, 43, 58, 0.5); padding: 30px; border-radius: 15px; border: 1px solid #FF0055;">
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; color: #00FF80; font-family: 'Michroma'; font-size: 0.8em; margin-bottom: 10px;">ВАШ ПОЗЫВНОЙ (НИКНЕЙМ):</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="new-nickname" class="auth-input" placeholder="Введите новый ник..." style="flex-grow: 1;">
+                    <button id="save-nick-btn" class="cta-button" style="padding: 10px 20px;">СОХРАНИТЬ</button>
+                </div>
+                <p id="profile-msg" style="margin-top: 10px; font-size: 0.8em;"></p>
             </div>
-            <div id="all-users-list"></div>
-        </div>
 
-        <div style="margin-top: 30px; text-align: center;"><a href="index.html">← НА ГЛАВНУЮ</a></div>
-    </div>
+            <hr style="border: 0; border-top: 1px solid #1A2B3A; margin: 30px 0;">
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button id="logout-btn" class="cta-button" style="background: transparent; border: 1px solid #FF0055; color: #FF0055;">ВЫЙТИ ИЗ СИСТЕМЫ</button>
+                <a href="index.html" style="color: #00FFFF; text-decoration: none; font-size: 0.9em;">← НА ГЛАВНУЮ</a>
+            </div>
+        </section>
+    </main>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        import { auth, db } from "./firebase-config.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import { doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCYX2Lr_OKT2yfqZCV5IYjNOZ2Bp4bZDRY",
-            authDomain: "ladder-aab8a.firebaseapp.com",
-            projectId: "ladder-aab8a",
-            appId: "1:558510161712:web:5e35ea602eeae4afb3d2f5"
-        };
+        const nickInput = document.getElementById('new-nickname');
+        const saveBtn = document.getElementById('save-nick-btn');
+        const msg = document.getElementById('profile-msg');
+        const emailLabel = document.getElementById('user-email');
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        const ADMIN_EMAIL = "sergsergserg@gmail.com"; 
-
+        // 1. Проверяем авторизацию и подтягиваем текущие данные
         onAuthStateChanged(auth, async (user) => {
-            if (!user) { window.location.href = "login.html"; return; }
-            
-            const snap = await getDoc(doc(db, "users", user.uid));
-            if(snap.exists()){
-                const d = snap.data();
-                document.getElementById('welcome-title').innerText = d.nickname ? d.nickname.toUpperCase() : "АДЕПТ";
-                renderBadge(d.badgeText, d.badgeColor, document.getElementById('my-badge-display'));
-            }
+            if (user) {
+                emailLabel.innerText = user.email;
+                
+                // Берем данные из Firestore
+                const userRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userRef);
 
-            if (user.email === ADMIN_EMAIL) {
-                document.getElementById('admin-area').style.display = 'block';
-                initAdminList();
-            }
-        });
-
-        document.getElementById('save-nick-btn').addEventListener('click', async () => {
-            const nick = document.getElementById('new-nick').value.trim();
-            if (nick) {
-                await updateDoc(doc(db, "users", auth.currentUser.uid), { nickname: nick });
-                location.reload();
+                if (userDoc.exists()) {
+                    nickInput.value = userDoc.data().nickname || "";
+                }
+            } else {
+                // Если не залогинен — кидаем на страницу входа
+                location.href = "login.html";
             }
         });
 
-        function initAdminList() {
-            onSnapshot(collection(db, "users"), (snap) => {
-                const container = document.getElementById('all-users-list');
-                container.innerHTML = '';
-                snap.forEach(uDoc => {
-                    const data = uDoc.data();
-                    const div = document.createElement('div');
-                    div.className = 'user-item';
-                    div.innerHTML = `
-                        <span>${data.nickname || 'Аноним'} (${data.email})</span>
-                        <button class="cta-button" style="padding:5px 10px; font-size:0.6em;" onclick="giveCustomBadge('${uDoc.id}')">ВЫДАТЬ</button>
-                    `;
-                    container.appendChild(div);
-                });
+        // 2. Функция сохранения ника
+        saveBtn.addEventListener('click', async () => {
+            const user = auth.currentUser;
+            const newNick = nickInput.value.trim();
+
+            if (!user) return;
+            if (newNick.length < 2) {
+                msg.style.color = "#FF0055";
+                msg.innerText = "НИК СЛИШКОМ КОРОТКИЙ!";
+                return;
+            }
+
+            try {
+                saveBtn.disabled = true;
+                saveBtn.innerText = "ЖДИ...";
+                
+                const userRef = doc(db, "users", user.uid);
+                
+                // Проверяем, существует ли документ, если нет — создаем его через setDoc
+                const userDoc = await getDoc(userRef);
+                if (userDoc.exists()) {
+                    await updateDoc(userRef, { nickname: newNick });
+                } else {
+                    await setDoc(userRef, {
+                        nickname: newNick,
+                        email: user.email,
+                        badgeText: "АДЕПТ",
+                        badgeColor: "#00FFFF"
+                    });
+                }
+
+                msg.style.color = "#00FF80";
+                msg.innerText = "ДАННЫЕ ОБНОВЛЕНЫ!";
+                
+                setTimeout(() => { msg.innerText = ""; }, 3000);
+            } catch (error) {
+                console.error(error);
+                msg.style.color = "#FF0055";
+                msg.innerText = "ОШИБКА ДОСТУПА!";
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerText = "СОХРАНИТЬ";
+            }
+        });
+
+        // 3. Выход
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                location.href = "index.html";
             });
-        }
-
-        window.giveCustomBadge = async (targetUid) => {
-            const text = document.getElementById('badge-text').value.toUpperCase() || "АДЕПТ";
-            const color = document.getElementById('badge-color').value;
-            await updateDoc(doc(db, "users", targetUid), { badgeText: text, badgeColor: color });
-            alert("ПЛАШКА ВЫДАНА!");
-        };
-
-        function renderBadge(text, color, el) {
-            if (!text) { el.innerHTML = "НЕТ СТАТУСА"; return; }
-            el.innerHTML = `<span class="badge" style="color:${color}; border-color:${color};">${text}</span>`;
-        }
-
-        window.signOutUser = () => signOut(auth).then(() => location.href = "index.html");
+        });
     </script>
 </body>
 </html>
