@@ -11,10 +11,8 @@ const firebaseConfig = {
     appId: "1:558510161712:web:5e35ea602eeae4afb3d2f5"
 };
 
-// Проверяем, инициализировано ли уже приложение, чтобы не было ошибки [DEFAULT]
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-const auth = getAuth(app);
-const db = getFirestore(app);
-const rdb = getDatabase(app);
 
-export { auth, db, rdb };
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const rdb = getDatabase(app);
