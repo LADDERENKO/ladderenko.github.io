@@ -2,125 +2,63 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ПРОФИЛЬ АДЕПТА | ЛАДДЕР-ПУШ</title>
+    <title>ТЕРМИНАЛ | ЛАДДЕР-ПУШ</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="hero-section" style="min-height: auto; padding: 40px 0;">
-        <div class="hero-content">
-            <h1 style="font-size: 2em; text-shadow: 0 0 15px #FF0055;">ЛИЧНЫЙ ТЕРМИНАЛ</h1>
-            <p id="user-email-display" style="color: #00FFFF; opacity: 0.7; font-family: 'Space Mono';"></p>
+    <div class="auth-container fade-in active">
+        <h2 style="color:#00FFFF; font-size:1.2em; text-align:center;">ПРОФИЛЬ АДЕПТА</h2>
+        <p id="u-mail" style="text-align:center; font-size:0.7em; color:#00FF80;"></p>
+
+        <label style="font-size:0.7em; color:#5a5a72;">ВАШ НИКНЕЙМ:</label>
+        <input type="text" id="my-nick" class="auth-input">
+        <button id="save-nick" class="auth-btn">ОБНОВИТЬ НИК</button>
+
+        <div id="admin-zone" style="display:none; margin-top:30px; border-top:2px solid #FF0055; padding-top:20px;">
+            <h3 style="color:#FF0055; font-size:0.8em;">⚡ УПРАВЛЕНИЕ ПЛАШКАМИ</h3>
+            <input type="text" id="target-uid" class="auth-input" placeholder="UID ПОЛЬЗОВАТЕЛЯ">
+            <input type="text" id="new-badge" class="auth-input" placeholder="ТЕКСТ ПЛАШКИ">
+            <input type="color" id="new-color" style="width:100%; height:40px; background:none; border:1px solid #FF0055; margin-bottom:15px;">
+            <button id="admin-save" class="auth-btn" style="border-color:#00FF80; color:#00FF80;">ПРИМЕНИТЬ СТАТУС</button>
         </div>
-    </header>
 
-    <main class="content-wrapper">
-        <section class="fade-in active" style="max-width: 600px; margin: 0 auto 30px auto; background: rgba(26, 43, 58, 0.5); padding: 25px; border-radius: 15px; border: 1px solid #00FF80;">
-            <h3 style="color: #00FF80; font-family: 'Michroma'; font-size: 0.9em; margin-bottom: 20px;">[ ОБЩИЕ ДАННЫЕ ]</h3>
-            
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; color: #E6F0FF; font-size: 0.7em; margin-bottom: 5px;">ВАШ ПОЗЫВНОЙ (НИКНЕЙМ):</label>
-                <input type="text" id="my-nickname" class="auth-input" style="width: 100%;" placeholder="Введите ник...">
-            </div>
-
-            <button id="save-my-btn" class="cta-button" style="width: 100%; padding: 12px;">ОБНОВИТЬ НИКНЕЙМ</button>
-        </section>
-
-        <section id="admin-panel" style="display: none; max-width: 600px; margin: 0 auto; background: rgba(255, 0, 85, 0.1); padding: 25px; border-radius: 15px; border: 2px solid #FF0055; box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);">
-            <h3 style="color: #FF0055; font-family: 'Michroma'; font-size: 0.9em; margin-bottom: 20px;">⚡ ЦЕНТР УПРАВЛЕНИЯ ПЛАШКАМИ (ADMIN)</h3>
-            
-            <div style="margin-bottom: 15px;">
-                <label style="display: block; color: #FF0055; font-size: 0.7em; margin-bottom: 5px;">UID ПОЛЬЗОВАТЕЛЯ (ДЛЯ СЕБЯ ИЛИ ДРУГИХ):</label>
-                <input type="text" id="admin-target-uid" class="auth-input" placeholder="Вставь UID..." style="width: 100%; border-color: #FF0055;">
-            </div>
-
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <div style="flex-grow: 1;">
-                    <label style="display: block; color: #FF0055; font-size: 0.7em; margin-bottom: 5px;">ТЕКСТ ПЛАШКИ:</label>
-                    <input type="text" id="admin-badge" class="auth-input" placeholder="Напр: ГЕНИЙ" style="width: 100%;">
-                </div>
-                <div style="width: 100px;">
-                    <label style="display: block; color: #FF0055; font-size: 0.7em; margin-bottom: 5px;">ЦВЕТ:</label>
-                    <input type="color" id="admin-color" value="#FF0055" style="width: 100%; height: 42px; background: #1a2b3a; border: 1px solid #FF0055; cursor: pointer;">
-                </div>
-            </div>
-
-            <button id="admin-save-btn" class="cta-button" style="width: 100%; padding: 12px; background: #FF0055;">УТВЕРДИТЬ СТАТУС В БАЗЕ</button>
-        </section>
-
-        <p id="status-msg" style="margin-top: 20px; text-align: center; font-family: 'Space Mono'; font-size: 0.8em; min-height: 1.2em;"></p>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <button id="logout-btn" style="background:none; border:none; color:#FF0055; cursor:pointer; font-size: 0.7em;">[ ВЫЙТИ ИЗ СИСТЕМЫ ]</button>
-            <br><br>
-            <a href="index.html" style="color: #00FFFF; text-decoration: none; font-size: 0.8em;">← ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
-        </div>
-    </main>
+        <p id="st-msg" style="text-align:center; font-size:0.8em; margin-top:15px;"></p>
+        <button id="lg-out" style="background:none; border:none; color:#FF0055; width:100%; cursor:pointer; margin-top:20px; font-size:0.7em;">[ ВЫЙТИ ]</button>
+    </div>
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
         import { doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-        // ТВОЙ EMAIL ДЛЯ ДОСТУПА К АДМИНКЕ
         const ADMIN_EMAIL = "sergsergserg@gmail.com"; 
 
-        const status = document.getElementById('status-msg');
-        const adminSection = document.getElementById('admin-panel');
-
         onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                document.getElementById('user-email-display').innerText = user.email.toUpperCase();
-                
-                // Проверка на админа
-                if (user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
-                    adminSection.style.display = 'block';
-                }
+            if (!user) location.href = "login.html";
+            document.getElementById('u-mail').innerText = user.email;
+            if (user.email === ADMIN_EMAIL) document.getElementById('admin-zone').style.display = 'block';
 
-                // Загружаем только никнейм для обычного редактирования
-                const userDoc = await getDoc(doc(db, "users", user.uid));
-                if (userDoc.exists()) {
-                    document.getElementById('my-nickname').value = userDoc.data().nickname || "";
-                }
-            } else {
-                location.href = "login.html";
-            }
+            const snap = await getDoc(doc(db, "users", user.uid));
+            if (snap.exists()) document.getElementById('my-nick').value = snap.data().nickname || "";
         });
 
-        // Обычный пользователь: меняет только НИК
-        document.getElementById('save-my-btn').onclick = async () => {
+        document.getElementById('save-nick').onclick = async () => {
             const user = auth.currentUser;
-            try {
-                // Используем merge: true, чтобы НЕ затереть плашку, которую поставил админ
-                await setDoc(doc(db, "users", user.uid), {
-                    nickname: document.getElementById('my-nickname').value.trim()
-                }, { merge: true });
-                showStatus("НИКНЕЙМ ОБНОВЛЕН", "#00FF80");
-            } catch (e) { showStatus("ОШИБКА ДОСТУПА", "#FF0055"); }
+            await setDoc(doc(db, "users", user.uid), { nickname: document.getElementById('my-nick').value }, { merge: true });
+            alert("Ник обновлен!");
         };
 
-        // Админ: меняет ПЛАШКУ и ЦВЕТ любому (включая себя по UID)
-        document.getElementById('admin-save-btn').onclick = async () => {
-            const uid = document.getElementById('admin-target-uid').value.trim();
-            if (!uid) { showStatus("ОШИБКА: UID НЕ УКАЗАН", "#FF0055"); return; }
-            
-            try {
-                await updateDoc(doc(db, "users", uid), {
-                    badgeText: document.getElementById('admin-badge').value.trim().toUpperCase(),
-                    badgeColor: document.getElementById('admin-color').value
-                });
-                showStatus("ПЛАШКА ДЛЯ " + uid + " УСТАНОВЛЕНА", "#00FF80");
-            } catch (e) { showStatus("ОШИБКА: ПОЛЬЗОВАТЕЛЬ НЕ НАЙДЕН", "#FF0055"); }
+        document.getElementById('admin-save').onclick = async () => {
+            const uid = document.getElementById('target-uid').value.trim();
+            await updateDoc(doc(db, "users", uid), {
+                badgeText: document.getElementById('new-badge').value.toUpperCase(),
+                badgeColor: document.getElementById('new-color').value
+            });
+            alert("Статус изменен!");
         };
 
-        function showStatus(text, color) {
-            status.style.color = color;
-            status.innerText = text;
-            setTimeout(() => status.innerText = "", 3000);
-        }
-
-        document.getElementById('logout-btn').onclick = () => signOut(auth).then(() => location.href = "index.html");
+        document.getElementById('lg-out').onclick = () => signOut(auth).then(() => location.href="index.html");
     </script>
 </body>
 </html>
